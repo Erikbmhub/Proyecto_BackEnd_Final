@@ -1,0 +1,26 @@
+
+extends ../layouts/main
+
+block content
+    section.dashboard-container
+        //- Mensaje de bienvenida
+        div.welcome-section
+            h2 Bienvenido a Movie App
+            p Descubre películas, consulta sus detalles y guarda tus favoritas.
+
+        //- Accesos principales del usuario
+        section.dashboard-options
+            h3 ¿Qué quieres hacer?
+
+            div.dashboard-cards
+                //- Acceso al buscador de películas
+                article.dashboard-card
+                    h4 Buscar películas
+                    p Encuentra películas por su título.
+                    a(href="/search") Buscar películas
+
+                //- Acceso a las películas favoritas
+                article.dashboard-card
+                    h4 Mis películas
+                    p Consulta las películas que has guardado como favoritas.
+                    a(href="/movies") Ver mis películas

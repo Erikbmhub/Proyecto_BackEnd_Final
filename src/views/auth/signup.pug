@@ -1,0 +1,61 @@
+
+extends ../layouts/main
+
+block content
+    section.signup-container
+        h2 Crear una cuenta
+
+        //- Formulario de registro
+        form#signup-form
+            //- Nombre del usuario
+            div.form-group
+                label(for="name") Nombre
+                input#name(
+                    type="text"
+                    name="name"
+                    placeholder="Introduce tu nombre"
+                    required
+                )
+
+            //- Correo electrónico
+            div.form-group
+                label(for="email") Correo electrónico
+                input#email(
+                    type="email"
+                    name="email"
+                    placeholder="Introduce tu correo electrónico"
+                    required
+                )
+
+            //- Contraseña
+            div.form-group
+                label(for="password") Contraseña
+                input#password(
+                    type="password"
+                    name="password"
+                    placeholder="Crea una contraseña"
+                    required
+                )
+
+            //- Confirmación de contraseña
+            div.form-group
+                label(for="confirmPassword") Confirmar contraseña
+                input#confirmPassword(
+                    type="password"
+                    name="confirmPassword"
+                    placeholder="Repite tu contraseña"
+                    required
+                )
+
+            //- Botón para registrarse
+            button(type="submit") Registrarse
+
+        //- Registro mediante Google
+        div.oauth-container
+            p O regístrate con:
+            a(href="/auth/google") Continuar con Google
+
+        //- Enlace al inicio de sesión
+        p
+            | ¿Ya tienes una cuenta?
+            a(href="/login") Inicia sesión aquí

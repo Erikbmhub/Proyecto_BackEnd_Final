@@ -1,0 +1,58 @@
+
+extends ../layouts/main
+
+block content
+    section.movie-detail
+        //- Título de la película
+        h2= movie.Title
+
+        //- Información principal
+        div.movie-detail-content
+
+            //- Cartel de la película
+            div.movie-poster
+                img(
+                    src=movie.Poster
+                    alt="Cartel de " + movie.Title
+                )
+
+            //- Datos de la película
+            div.movie-information
+                p
+                    strong Año:
+                    |  #{movie.Year}
+
+                p
+                    strong Director:
+                    |  #{movie.Director}
+
+                p
+                    strong Género:
+                    |  #{movie.Genre}
+
+                p
+                    strong Duración:
+                    |  #{movie.Runtime}
+
+                p
+                    strong Valoración:
+                    |  #{movie.imdbRating}
+
+                //- Sinopsis
+                h3 Sinopsis
+                p= movie.Plot
+
+                //- Reparto
+                h3 Reparto
+                p= movie.Actors
+
+        //- Acciones de la película
+        div.movie-actions
+            button(
+                type="button"
+                class="add-favorite"
+                data-movie-id=movie.id
+                data-movie-source=movie.source
+            ) Añadir a mis películas
+
+            a(href="/search") Volver al buscador
