@@ -5,8 +5,8 @@
   "main": "src/server.js",
   "scripts": {
     "test": "jest",
-    "start": "node app.js",
-    "dev": "node --watch app.js"
+    "start": "node src/app.js",
+    "dev": "node --watch src/app.js"
   },
   "keywords": [],
   "author": "Erik buitrago, Yousra Ben-Messoud, Lucas Dos Reis",

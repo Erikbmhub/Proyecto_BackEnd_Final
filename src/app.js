@@ -1,8 +1,8 @@
 const express = require('express');
-const usersRoutes = require("./src/routes/users.routes")
-const authRoutes = require("./src/routes/auth.routes")
-const moviesRoutes = require("./src/routes/movies.routes")
-const favoritesRoutes = require("./src/routes/favorites.routes")
+const usersRoutes = require("./routes/users.routes")
+const authRoutes = require("./routes/auth.routes")
+const moviesRoutes = require("./routes/movies.routes")
+const favoritesRoutes = require("./routes/favorites.routes")
 //Pendinte importar el módulo server.js que inicia el servidor
 
 const app = express()
