@@ -1,38 +1,34 @@
+section
+    //- Título de la página
+    h2 Mi perfil
 
-extends ../layouts/main
+    //- Comprobamos que existe un usuario
+    if user
+        form(action="/api/users/profile" method="PUT")
+            //- Nombre del usuario
+            div
+                label(for="name") Nombre
+                input(
+                    type="text"
+                    name="name"
+                    value=user.name
+                    required
+                )
 
-block content
-    section.profile-container
-        //- Título de la página
-        h2 Mi perfil
+            //- Correo electrónico
+            div
+                label(for="email") Correo electrónico
+                input(
+                    type="email"
+                    name="email"
+                    value=user.email
+                    required
+                )
 
-        //- Comprobamos que existe un usuario
-        if user
-            form#profile-form(action="/api/users/profile" method="POST")
-                //- Nombre del usuario
-                div.form-group
-                    label(for="name") Nombre
-                    input#name(
-                        type="text"
-                        name="name"
-                        value=user.name
-                        required
-                    )
+            //- Botón para guardar los cambios
+            button(type="submit") Guardar cambios
+    else
+        p No se ha podido cargar la información del usuario.
 
-                //- Correo electrónico
-                div.form-group
-                    label(for="email") Correo electrónico
-                    input#email(
-                        type="email"
-                        name="email"
-                        value=user.email
-                        required
-                    )
-
-                //- Botón para guardar los cambios
-                button(type="submit") Guardar cambios
-        else
-            p No se ha podido cargar la información del usuario.
-
-        //- Volver al panel de control
-        a(href="/dashboard") Volver al panel
+    //- Volver al panel de control
+    a(href="/dashboard") Volver al panel de control

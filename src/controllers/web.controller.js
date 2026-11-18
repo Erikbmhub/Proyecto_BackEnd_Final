@@ -18,9 +18,9 @@ async function getViewSearchByDetail(req, res) { //vista detalle de la película
     res.render("../views/user/detail.pug")
 }
 
-//http://localhost:3001/favorites
-async function getViewFavorites(req, res) { //películas favoritas del usuario
-    res.render("../views/user/favorites.pug")
+//http://localhost:3001/movies
+async function getViewMovies(req, res) { //películas favoritas del usuario
+    res.render("../views/admin/movies.pug")
 }
 
 //http://localhost:3001/profile
@@ -33,12 +33,18 @@ async function getViewUsers(req, res) { //lista de usuarios
     res.render("../views/admin/users.pug")
 }
 
+//http://localhost:3001/signup
+async function getViewSignUp(req, res) { //vista de formulario de registro de la app
+    res.render("../views/auth/signup.pug")
+}
+
 module.exports = webControllers = {
     getViewHome,
     getViewDashboard,
     getViewSearch,
     getViewSearchByDetail,
-    getViewFavorites,
+    getViewMovies,
     getViewProfile,
-    getViewUsers
+    getViewUsers,
+    getViewSignUp
 }

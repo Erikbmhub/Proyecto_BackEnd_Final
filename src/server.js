@@ -1,10 +1,8 @@
-
 require('dotenv').config();
+
+const app = require('./app');
 const port = process.env.PORT || 3000;
 
-
 app.listen(port, () => {
-    console.log(`Puerta habilitado en: ${port}`)
+    console.log(`Puerto habilitado en: ${port}`);
 });
-
-// Meter logica de OAuth, valorar cantidad de lineas

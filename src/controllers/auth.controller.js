@@ -2,11 +2,11 @@ const { createUser, findUserByUsername } = require('../models/user.model.js');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 
-async function register(req, res) {
+async function signupAuth(req, res) {
     const { username, password, email, role = 'user' } = req.body;
-    
+
     try {
-        if (!username || !password || !email) {            
+        if (!username || !password || !email) {
             return res.status(400).send('Todos los campos son obligatorios');
         }
         const newUser = await createUser(username, email, role, password);
@@ -17,14 +17,18 @@ async function register(req, res) {
     }
 }
 
-async function login(req, res) {
+async function loginAuth(req, res) {
     const { username, password } = req.body;
     try {
         const user = await findUserByUsername(username);
         if (user && await bcrypt.compare(password, user.password)) {
             const token = jwt.sign({ id: user.id, role: user.role }, process.env.JWT_SECRET, { expiresIn: '1h' });
             res.cookie('token', token, { httpOnly: true });
-            res.redirect(user.role === 'admin' ? '/admin/dashboard' : '/user/dashboard');
+            if (user.role === "admin") {
+                res.redirect("/api/movie/")
+            } else {
+                res.render('../views/user/dashboard.pug');
+            }
         } else {
             res.status(401).send('Credenciales inválidas');
         }
@@ -33,9 +37,13 @@ async function login(req, res) {
     }
 }
 
-function logout(req, res) {
+function logoutAuth(req, res) {
     res.clearCookie('token');
-    res.redirect('/login');
+    res.redirect('/');
 }
 
-module.exports = { register, login, logout };
+module.exports = authController = {
+    signupAuth,
+    loginAuth,
+    logoutAuth
+};
