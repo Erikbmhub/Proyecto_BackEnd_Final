@@ -6,7 +6,7 @@ block content
         h2 Crear una cuenta
 
         //- Formulario de registro
-        form#signup-form
+        form#signup-form(action="/api/signup" method="POST")
             //- Nombre del usuario
             div.form-group
                 label(for="name") Nombre
