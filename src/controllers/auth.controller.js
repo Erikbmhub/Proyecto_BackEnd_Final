@@ -10,7 +10,7 @@ async function signupAuth(req, res) {
             return res.status(400).send('Todos los campos son obligatorios');
         }
         const newUser = await createUser(username, email, role, password);
-        res.redirect('/');
+        res.redirect('/login');
     } catch (error) {
         console.error('Error en el registro:', error.message);
         res.status(500).send('Error en el registro');

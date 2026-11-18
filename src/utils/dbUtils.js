@@ -7,9 +7,7 @@ async function executeQuery(query, values) {
         return result.rows[0];
     } catch (error) {
         console.error('Error executing query:', error.message);
-        const queryError = new Error('Error al ejecutar la consulta');
-        queryError.code = error.code;
-        throw queryError;
+        throw new Error('Error al ejecutar la consulta');
     }
 }
 
