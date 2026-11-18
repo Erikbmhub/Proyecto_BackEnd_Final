@@ -2,16 +2,16 @@
 extends ../layouts/main
 
 block content
-    section.search-container
+    section
         //- Título de la página
         h2 Buscar películas
         p Encuentra películas por su título.
 
         //- Formulario de búsqueda
         form(action="/search" method="GET")
-            div.form-group
+            div
                 label(for="title") Título de la película
-                input#title(
+                input(
                     type="text"
                     name="title"
                     placeholder="Ejemplo: Inception"
@@ -21,30 +21,30 @@ block content
             button(type="submit") Buscar
 
         //- Zona de resultados
-        section.search-results
+        section
             h3 Resultados de búsqueda
 
             //- Comprobamos si existen películas
             if movies && movies.length
-                div.movie-list
+                div
                     each movie in movies
-                        article.movie-card
+                        article
                             //- Cartel de la película
                             img(
                                 src=movie.Poster
-                                alt="Cartel de " + movie.Title
+                                alt="Portada de " + movie.Title
                             )
 
                             //- Información de la película
-                            div.movie-info
+                            div
                                 h4= movie.Title
                                 p Año: #{movie.Year}
                                 p Director: #{movie.Director}
                                 p Género: #{movie.Genre}
                                 p Duración: #{movie.Runtime}
 
-                                //- Enlace a los detalles
-                                a(href="/search/" + encodeURIComponent(movie.Title)) Ver detalles
+                                //- Enlace a los detalles (vista "details.pug")
+                                a(href="/search/" + encodeURIComponent(movie.Title)) Más detalles
 
                                 //- Botón para añadir a favoritos
                                 button(
@@ -52,6 +52,6 @@ block content
                                     class="add-favorite"
                                     data-movie-id=movie.id
                                     data-movie-source=movie.source
-                                ) Añadir a mis películas
+                                ) Añadir a favoritos
             else
                 p No hay resultados para mostrar.
