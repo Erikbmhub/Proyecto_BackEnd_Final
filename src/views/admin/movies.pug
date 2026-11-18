@@ -9,7 +9,7 @@ block content
         section.create-movie
             h3 Añadir una nueva película
 
-            form#movie-form
+            form#movie-form(action="/api/movies" method="POST")
                 div.form-group
                     label(for="title") Título
                     input#title(
