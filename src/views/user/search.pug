@@ -1,0 +1,57 @@
+
+extends ../layouts/main
+
+block content
+    section.search-container
+        //- Título de la página
+        h2 Buscar películas
+        p Encuentra películas por su título.
+
+        //- Formulario de búsqueda
+        form(action="/search" method="GET")
+            div.form-group
+                label(for="title") Título de la película
+                input#title(
+                    type="text"
+                    name="title"
+                    placeholder="Ejemplo: Inception"
+                    required
+                )
+
+            button(type="submit") Buscar
+
+        //- Zona de resultados
+        section.search-results
+            h3 Resultados de búsqueda
+
+            //- Comprobamos si existen películas
+            if movies && movies.length
+                div.movie-list
+                    each movie in movies
+                        article.movie-card
+                            //- Cartel de la película
+                            img(
+                                src=movie.Poster
+                                alt="Cartel de " + movie.Title
+                            )
+
+                            //- Información de la película
+                            div.movie-info
+                                h4= movie.Title
+                                p Año: #{movie.Year}
+                                p Director: #{movie.Director}
+                                p Género: #{movie.Genre}
+                                p Duración: #{movie.Runtime}
+
+                                //- Enlace a los detalles
+                                a(href="/search/" + encodeURIComponent(movie.Title)) Ver detalles
+
+                                //- Botón para añadir a favoritos
+                                button(
+                                    type="button"
+                                    class="add-favorite"
+                                    data-movie-id=movie.id //Nombre provisional
+                                    data-movie-source=movie.source //Nombre provisional
+                                ) Añadir a mis películas
+            else
+                p No hay resultados para mostrar.

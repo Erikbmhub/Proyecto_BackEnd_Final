@@ -1,0 +1,68 @@
+
+extends ../layouts/main
+
+block content
+    section.admin-users-container
+        h2 Gestión de usuarios
+
+        //- Formulario para crear un usuario
+        section.create-user
+            h3 Crear nuevo usuario
+
+            form#user-form
+                div.form-group
+                    label(for="name") Nombre
+                    input#name(
+                        type="text"
+                        name="name"
+                        placeholder="Nombre del usuario"
+                        required
+                    )
+
+                div.form-group
+                    label(for="email") Correo electrónico
+                    input#email(
+                        type="email"
+                        name="email"
+                        placeholder="Correo electrónico"
+                        required
+                    )
+
+                div.form-group
+                    label(for="password") Contraseña
+                    input#password(
+                        type="password"
+                        name="password"
+                        placeholder="Contraseña"
+                        required
+                    )
+
+                button(type="submit") Crear usuario
+
+        //- Listado de usuarios registrados
+        section.user-management
+            h3 Usuarios registrados
+
+            if users && users.length
+                div.user-list
+                    each user in users
+                        article.user-card
+                            div.user-info
+                                h4= user.name
+                                p Correo: #{user.email}
+                                p Rol: #{user.role}
+
+                                //- Acciones de administración
+                                button(
+                                    type="button"
+                                    class="edit-user"
+                                    data-user-id=user.id
+                                ) Editar
+
+                                button(
+                                    type="button"
+                                    class="delete-user"
+                                    data-user-id=user.id
+                                ) Eliminar
+            else
+                p Todavía no hay usuarios registrados.

@@ -1,0 +1,38 @@
+
+extends ../layouts/main
+
+block content
+    section.profile-container
+        //- Título de la página
+        h2 Mi perfil
+
+        //- Comprobamos que existe un usuario
+        if user
+            form#profile-form
+                //- Nombre del usuario
+                div.form-group
+                    label(for="name") Nombre
+                    input#name(
+                        type="text"
+                        name="name"
+                        value=user.name
+                        required
+                    )
+
+                //- Correo electrónico
+                div.form-group
+                    label(for="email") Correo electrónico
+                    input#email(
+                        type="email"
+                        name="email"
+                        value=user.email
+                        required
+                    )
+
+                //- Botón para guardar los cambios
+                button(type="submit") Guardar cambios
+        else
+            p No se ha podido cargar la información del usuario.
+
+        //- Volver al panel de control
+        a(href="/dashboard") Volver al panel

@@ -1,0 +1,102 @@
+
+extends ../layouts/main
+
+block content
+    section.admin-movies-container
+        h2 Gestión de películas
+
+        //- Formulario para añadir una película
+        section.create-movie
+            h3 Añadir una nueva película
+
+            form#movie-form
+                div.form-group
+                    label(for="title") Título
+                    input#title(
+                        type="text"
+                        name="title"
+                        placeholder="Título de la película"
+                        required
+                    )
+
+                div.form-group
+                    label(for="image") Imagen
+                    input#image(
+                        type="text"
+                        name="image"
+                        placeholder="URL del cartel"
+                        required
+                    )
+
+                div.form-group
+                    label(for="year") Año
+                    input#year(
+                        type="number"
+                        name="year"
+                        placeholder="Año de estreno"
+                        required
+                    )
+
+                div.form-group
+                    label(for="director") Director
+                    input#director(
+                        type="text"
+                        name="director"
+                        placeholder="Nombre del director"
+                        required
+                    )
+
+                div.form-group
+                    label(for="genre") Género
+                    input#genre(
+                        type="text"
+                        name="genre"
+                        placeholder="Género de la película"
+                        required
+                    )
+
+                div.form-group
+                    label(for="duration") Duración
+                    input#duration(
+                        type="text"
+                        name="duration"
+                        placeholder="Ejemplo: 120 min"
+                        required
+                    )
+
+                button(type="submit") Añadir película
+
+        //- Listado de películas almacenadas en MongoDB
+        section.movie-management
+            h3 Películas registradas
+
+            if movies && movies.length
+                div.movie-list
+                    each movie in movies
+                        article.movie-card
+                            img(
+                                src=movie.image
+                                alt="Cartel de " + movie.title
+                            )
+
+                            div.movie-info
+                                h4= movie.title
+                                p Año: #{movie.year}
+                                p Director: #{movie.director}
+                                p Género: #{movie.genre}
+                                p Duración: #{movie.duration}
+
+                                //- Acciones de administración
+                                button(
+                                    type="button"
+                                    class="edit-movie"
+                                    data-movie-id=movie._id
+                                ) Editar
+
+                                button(
+                                    type="button"
+                                    class="delete-movie"
+                                    data-movie-id=movie._id
+                                ) Eliminar
+            else
+                p Todavía no hay películas registradas.

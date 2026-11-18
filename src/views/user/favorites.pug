@@ -1,0 +1,57 @@
+
+extends ../layouts/main
+
+block content
+    section.favorites-container
+        //- Título de la página
+        h2 Mis películas
+
+        p Aquí puedes consultar las películas que has guardado como favoritas.
+
+        //- Comprobamos si existen películas favoritas
+        if movies && movies.length
+            div.movie-list
+                each movie in movies
+                    article.movie-card
+                        //- Cartel de la película
+                        img(
+                            src=movie.Poster
+                            alt="Cartel de " + movie.Title
+                        )
+
+                        //- Información de la película
+                        div.movie-info
+                            h3= movie.Title
+
+                            p
+                                strong Año:
+                                |  #{movie.Year}
+
+                            p
+                                strong Director:
+                                |  #{movie.Director}
+
+                            p
+                                strong Género:
+                                |  #{movie.Genre}
+
+                            p
+                                strong Duración:
+                                |  #{movie.Runtime}
+
+                            //- Enlace a los detalles (opcional: pendiente de valorar con el equipo para películas de MongoDB)
+                            a(href="/search/" + encodeURIComponent(movie.Title)) Ver detalles
+
+                            //- Botón para eliminar de favoritos
+                            button(
+                                type="button"
+                                class="remove-favorite"
+                                data-movie-id=movie.id
+                                data-movie-source=movie.source
+                            ) Eliminar de mis películas
+        else
+            //- Mensaje cuando no existen películas favoritas
+            p Todavía no has guardado ninguna película.
+
+        //- Volver al buscador
+        a(href="/search") Buscar más películas
