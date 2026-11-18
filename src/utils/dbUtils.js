@@ -1,0 +1,16 @@
+const pool = require('../config/db.postgres.js');
+
+// Método genérico para ejecutar consultas SQL
+async function executeQuery(query, values) {
+    try {
+        const result = await pool.query(query, values);
+        return result.rows[0];
+    } catch (error) {
+        console.error('Error executing query:', error.message);
+        const queryError = new Error('Error al ejecutar la consulta');
+        queryError.code = error.code;
+        throw queryError;
+    }
+}
+
+module.exports = { executeQuery };

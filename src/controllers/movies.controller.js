@@ -13,10 +13,15 @@ async function putMovie(req, res) { //Editar película (admin)
 async function deleteMovie(req, res) { //Borrar película (admin)
     //pendiente
 }
+async function getMoviesByAdmin(req, res) { //Nos renderizara la vista de movies de admin con todas las peliculas
+    let movies
+    res.render("../views/admin/movies.pug", movies)
+}
 
 module.exports = moviesController = {
     getMovie,
     postMovie,
     putMovie,
-    deleteMovie
+    deleteMovie,
+    getMoviesByAdmin
 }
