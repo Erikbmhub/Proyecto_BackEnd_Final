@@ -1,12 +1,12 @@
-async function signupAuth(req, res) {
+async function signupAuth(req, res) { // Registrar usuario en la aplicación
     //pendiente
 }
 
-async function loginAuth(req, res) {
+async function loginAuth(req, res) { //Hacer login en la aplicación
     //pendiente
 }
 
-async function logoutAuth(req, res) {
+async function logoutAuth(req, res) { //Salir
     //pendiente
 }
 
