@@ -1,1 +1,0 @@
-//Necesario importar este módulo al archivo "app.js"
