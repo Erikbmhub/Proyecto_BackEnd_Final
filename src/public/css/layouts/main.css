@@ -251,3 +251,69 @@ footer {
     font-size: 0.92rem;
   }
 }
+
+/* =========================================
+   DETALLES SUTILES DE MOVIMIENTO (LAYOUT)
+   ========================================= */
+
+/* Pulso suave en el indicador del logo */
+@keyframes softPulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.25);
+    opacity: 0.75;
+  }
+}
+
+header h1 a::before {
+  animation: softPulse 2.8s ease-in-out infinite;
+}
+
+/* Entrada limpia y rápida del contenido de cada vista */
+@keyframes pageEnter {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+main {
+  animation: pageEnter 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Respetar usuarios con movimiento reducido */
+@media (prefers-reduced-motion: reduce) {
+  header h1 a::before,
+  main,
+  .admin-nav,
+  .user-nav {
+    animation: none !important;
+  }
+}
+
+.public-nav li a {
+  position: relative;
+}
+
+.public-nav li a:not([href="/signup"])::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 2px;
+  width: 0;
+  height: 2px;
+  background-color: var(--accent-primary);
+  transform: translateX(-50%);
+  transition: width 0.22s ease;
+}
+
+.public-nav li a:not([href="/signup"]):hover::after {
+  width: 65%;
+}
