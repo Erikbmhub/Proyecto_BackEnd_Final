@@ -1,12 +1,13 @@
 require('dotenv').config();
 const path = require("path");
 const express = require("express");
+require("./config/db.mongo.js")
 
 // Todo relacionado con Auth revisar para saber donde meterlo para dejar archivo limpio
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
 const passport = require("passport");
-require("./auth/googleAuth"); 
+require("./auth/googleAuth");
 
 
 
