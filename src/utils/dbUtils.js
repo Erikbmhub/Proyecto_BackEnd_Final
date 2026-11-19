@@ -11,4 +11,4 @@ async function executeQuery(query, values) {
     }
 }
 
-module.exports = { executeQuery };
+module.exports =  executeQuery

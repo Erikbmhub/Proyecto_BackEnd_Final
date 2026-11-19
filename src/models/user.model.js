@@ -1,6 +1,6 @@
 const bcrypt = require('bcryptjs');
 const queries = require('../queries/user.queries.js');
-const { executeQuery } = require('../utils/dbUtils.js');
+const executeQuery = require("../utils/dbUtils.js");
 
 async function createUser(name, email, role="user", password) {
     console.log('Creating user with data:', { name, email, role,  password});

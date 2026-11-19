@@ -2,7 +2,7 @@ const { createUser, findUserByUsername } = require('../models/user.model.js');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 
-async function signupAuth(req, res) {
+async function signupAuth(req, res) { //CREAR NUEVO USUARIO
     const { username, password, email, role = 'user' } = req.body;
 
     try {
@@ -17,7 +17,7 @@ async function signupAuth(req, res) {
     }
 }
 
-async function loginAuth(req, res) {
+async function loginAuth(req, res) { //ENTRAR CON CUENTA YA CREADA
     const { username, password } = req.body;
     try {
         const user = await findUserByUsername(username);
