@@ -30,7 +30,7 @@ app.use(session({ secret: process.env.JWT_SECRET, resave: false, saveUninitializ
 app.use(passport.initialize());
 app.use(passport.session());
 
-
+app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/api/user", usersRoutes)
 app.use(authRoutes)
