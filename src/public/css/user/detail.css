@@ -1,0 +1,179 @@
+/* =========================================
+   MOVIE DETAIL VIEW — MOBILE FIRST
+   ========================================= */
+.movie-detail {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 1.5rem 1rem 3.5rem;
+  color: var(--text-primary);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Título principal de la película */
+.movie-detail > h2 {
+  font-size: 1.65rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+/* Contenedor principal de la ficha (Cartel + Datos) */
+.movie-detail-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 1.25rem;
+  box-shadow: var(--shadow-card);
+}
+
+/* Cartel de la película */
+.movie-poster {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.movie-poster img {
+  width: 100%;
+  max-width: 320px;
+  height: auto;
+  aspect-ratio: 2 / 3;
+  object-fit: cover;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-subtle);
+  background-color: var(--bg-input);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+}
+
+/* Información de la película */
+.movie-information {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.movie-information p {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.movie-information p strong {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+/* Subtítulos de Sinopsis y Reparto */
+.movie-information h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-top: 0.75rem;
+  margin-bottom: -0.25rem;
+}
+
+/* Acciones de la película (Añadir a favoritos / Volver) */
+.movie-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding-top: 0.5rem;
+}
+
+.add-favorite {
+  width: 100%;
+  padding: 0.85rem 1.25rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #ffffff;
+  background-color: var(--accent-primary);
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: background-color var(--transition-fast), transform var(--transition-fast);
+  box-shadow: 0 4px 12px rgba(229, 9, 20, 0.3);
+}
+
+.add-favorite:hover {
+  background-color: var(--accent-primary-hover);
+}
+
+.add-favorite:active {
+  transform: scale(0.99);
+}
+
+.movie-actions a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 0.75rem 1.25rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  background-color: var(--bg-elevated);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  transition: background-color var(--transition-fast), border-color var(--transition-fast);
+}
+
+.movie-actions a:hover {
+  background-color: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* =========================================
+   TABLET / ESCRITORIO (>= 768px)
+   ========================================= */
+@media (min-width: 768px) {
+  .movie-detail {
+    padding: 2.5rem 2rem 4rem;
+  }
+
+  .movie-detail > h2 {
+    font-size: 2rem;
+  }
+
+  .movie-detail-content {
+    flex-direction: row;
+    gap: 2rem;
+    padding: 2rem;
+  }
+
+  .movie-poster {
+    flex: 0 0 300px;
+    justify-content: flex-start;
+  }
+
+  .movie-poster img {
+    max-width: 100%;
+  }
+
+  .movie-information {
+    flex: 1;
+  }
+
+  .movie-actions {
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .add-favorite {
+    width: auto;
+    min-width: 220px;
+  }
+
+  .movie-actions a {
+    width: auto;
+    min-width: 180px;
+  }
+}
