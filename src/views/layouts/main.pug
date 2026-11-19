@@ -7,69 +7,91 @@ html(lang="es")
         title= typeof title !== "undefined" ? title : "Movie App"
 
         //- Hoja de estilos principal
-        link(rel="stylesheet" href="/css/styles.css")
+        link(rel=“stylesheet” href=“/css/base.css”)
+        link(rel=“stylesheet” href=“/css/layouts/main.css”)
+        block styles
 
     body
         //- Cabecera de la aplicación
         header
-            h1 Movie App
+            h1 Movie app / Vista de inicio
+            //- La vista principal muestra el acceso; las demás vistas sustituyen este bloque.
 
-        //- Comprobamos si existe un usuario autenticado
-        if typeof user !== "undefined" && user
+            //- Comprobamos si existe un usuario autenticado
+            if typeof user !== "undefined" && user
 
-            //- Navegación del administrador
-            if user.role === "Admin"
-                details.sidebar-menu
-                    summary.menu-toggle
-                        span ☰
-                        |  Menú
+                //- Navegación del administrador
+                if user.role === "admin"
+                    details
+                        summary
+                            span ☰
+                            |  Menú
+                        nav
+                            ul
+                                li
+                                    form(action="/api/logout" method="POST")
+                                        button(type="submit") Salir
 
-                    nav.admin-nav
-                        ul
-                            li
-                                a(href="/movies") Gestión de películas
-                            li
-                                a(href="/users") Gestión de usuarios
-                            li
-                                a(href="/profile") Mi perfil
-                            li
-                                form(action="/api/logout" method="POST")
-                                    button(type="submit") Cerrar sesión
+                //- Navegación del usuario
+                else
+                    details
+                        summary
+                            span ☰
+                            |  Menú
 
-            //- Navegación del usuario
+                        nav
+                            ul
+                                li
+                                    a(href="/dashboard") Panel de control
+                                li
+                                    a(href="/search") Buscar películas
+                                li
+                                    a(href="/movies") Mis favoritos
+                                li
+                                    form(action="/api/logout" method="POST")
+                                        button(type="submit") Salir
+
+
+            //- Navegación para visitantes no autenticados
             else
-                details.sidebar-menu
-                    summary.menu-toggle
-                        span ☰
-                        |  Menú
 
-                    nav.user-nav
-                        ul
-                            li
-                                a(href="/dashboard") Panel de control
-                            li
-                                a(href="/search") Buscar películas
-                            li
-                                a(href="/movies") Mis películas
-                            li
-                                form(action="/api/logout" method="POST")
-                                    button(type="submit") Cerrar sesión
 
-        //- Navegación para visitantes no autenticados
-        else
-            nav.public-nav
-                ul
-                    li
-                        a(href="/") Inicio
-                    li
-                        a(href="/login") Iniciar sesión
-                    li
-                        a(href="/signup") Registrarse
+                section
+                    h2 Iniciar sesión
 
-        //- Contenido específico de cada página
+                    form(action="/api/login" method="POST")
+                        div
+                            label(for="email") Correo electrónico
+                            input(
+                                type="email"
+                                name="email"
+                                placeholder="Introduce tu correo electrónico"
+                                autocomplete="email"
+                                required
+                            )
+
+                        div
+                            label(for="password") Contraseña
+                            input(
+                                type="password"
+                                name="password"
+                                placeholder="Introduce tu contraseña"
+                                autocomplete="current-password"
+                                required
+                            )
+
+                        button(type="submit") Iniciar sesión
+
+                    div
+                        p O continúa con tu cuenta de Google:
+                        a(href="/auth/google") Continuar con Google
+
+                    p
+                        | ¿Todavía no tienes cuenta?
+                        a(href="/signup") Regístrate aquí
+
         main
             block content
 
-        //- Pie de página
-        footer
-            p Movie App - Proyecto Backend
+    footer
+        p ~ Proyecto Backend ~

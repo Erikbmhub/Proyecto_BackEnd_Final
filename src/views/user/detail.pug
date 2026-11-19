@@ -1,58 +1,40 @@
-
 extends ../layouts/main
 
+block styles
+  link(rel=“stylesheet” href=“/css/user/detail.css”)
+
 block content
-    section.movie-detail
+    section
         //- Título de la película
         h2= movie.Title
 
         //- Información principal
-        div.movie-detail-content
-
+        div
             //- Cartel de la película
-            div.movie-poster
+            div
                 img(
                     src=movie.Poster
-                    alt="Cartel de " + movie.Title
+                    alt="Portada de " + movie.Title
                 )
 
-            //- Datos de la película
-            div.movie-information
-                p
-                    strong Año:
-                    |  #{movie.Year}
-
-                p
-                    strong Director:
-                    |  #{movie.Director}
-
-                p
-                    strong Género:
-                    |  #{movie.Genre}
-
-                p
-                    strong Duración:
-                    |  #{movie.Runtime}
-
-                p
-                    strong Valoración:
-                    |  #{movie.imdbRating}
-
-                //- Sinopsis
-                h3 Sinopsis
-                p= movie.Plot
-
-                //- Reparto
-                h3 Reparto
-                p= movie.Actors
+            //- Información de la película
+            div
+                h4= movie.Title
+                p Año: #{movie.Year}
+                p Director: #{movie.Director}
+                p Género: #{movie.Genre}
+                p Duración: #{movie.Runtime}
+                p Sinopsis: #{movie.Plot}
+                p Reparto: #{movie.Actors}
+                p Valoración: #{movie.imdbRating}
 
         //- Acciones de la película
-        div.movie-actions
+        div
             button(
                 type="button"
                 class="add-favorite"
                 data-movie-id=movie.id
                 data-movie-source=movie.source
-            ) Añadir a mis películas
+            ) Añadir a favoritos
 
-            a(href="/search") Volver al buscador
+            a(href="/search") Buscar más películas

@@ -1,10 +1,55 @@
 const express = require('express');
-const authController = require("../controllers/auth.controller")
-
 const router = express.Router();
+const { register, login, logout } = require('../controllers/auth.controller');
+const authMiddleware = require('../middlewares/auth.middleware');
+const authorizeRole = require('../middlewares/role.middleware');
+const passport = require('passport');
 
-router.post("/signup", authController.signupAuth) // Registrar usuario en la aplicación
-router.post("/login", authController.loginAuth) //Hacer login en la aplicación
-router.post("/logout", authController.logoutAuth) //Salir
+// Rutas de Autentificacion Local - Registro + Login clasico
 
-module.exports = router
+router.get('/signup', (req, res) => res.render('auth/signup'));
+router.post('/signup', register);
+
+router.get('/', (req, res) => res.redirect('/login'));
+
+router.get('/login', (req, res) => res.render('auth/login'));
+router.post('/login', login);
+
+//***Rutas de google OAuth ( Iniciar sesion con Google )***
+
+router.get('/auth/google', passport.authenticate('google', { scope: ['email', 'profile'], prompt: 'select_account' }));
+
+// Callback de Google
+router.get("/auth/google/callback",
+    passport.authenticate('google', { failureRedirect: '/login' }),
+    (req, res) => {
+        res.cookie('token', req.user.token, { httpOnly: true });
+        const redirectUrl = req.user.user.role === 'admin' ? '/admin/dashboard' : '/user/dashboard';
+        res.redirect(redirectUrl);
+    }
+);
+
+//Ruta de cierre de sesion
+
+router.get('/logout', (req, res) => {
+    req.logout((err) => {
+        if (err) return next(err);
+        req.session.destroy(() => {
+            res.clearCookie('connect.sid'); // Eliminar la cookie de sesión
+            res.clearCookie('token'); // Eliminar el token JWT
+            res.redirect('/login');
+        });
+    });
+});
+
+//Rutas protegidas por Roles
+
+router.get('/user/dashboard', authMiddleware, authorizeRole('user'), (req, res) => {
+    res.render('user/dashboard', { role: 'user' });
+});
+
+router.get('/admin/dashboard', authMiddleware, authorizeRole('admin'), (req, res) => {
+    res.render('admin/dashboard', { role: 'admin' });
+});
+
+module.exports = router;

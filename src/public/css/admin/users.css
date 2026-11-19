@@ -1,0 +1,257 @@
+/* =========================================
+   ADMIN USERS — MOBILE FIRST
+   ========================================= */
+.admin-users-container {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 1.25rem 1rem 3rem;
+  color: var(--text-primary);
+}
+
+.admin-users-container > h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 1.25rem;
+  padding-bottom: 0.65rem;
+  border-bottom: 1px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.admin-users-container > h2::before {
+  content: "ADMIN";
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: #0c0f16;
+  background-color: var(--accent-admin);
+  padding: 0.2rem 0.45rem;
+  border-radius: 6px;
+}
+
+/* Bloques principales: Crear usuario y Listado */
+.create-user,
+.user-management {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 1.15rem;
+  box-shadow: var(--shadow-card);
+}
+
+.create-user {
+  margin-bottom: 2rem;
+}
+
+.create-user h3,
+.user-management h3 {
+  font-size: 1.15rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: var(--text-primary);
+}
+
+/* Formulario de alta en móvil (1 columna) */
+#user-form {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.95rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.form-group label {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+.form-group input {
+  width: 100%;
+  padding: 0.7rem 0.85rem;
+  font-size: 0.95rem;
+  color: var(--text-primary);
+  background-color: var(--bg-input);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  outline: none;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.form-group input::placeholder {
+  color: var(--text-muted);
+}
+
+.form-group input:focus {
+  border-color: var(--accent-admin);
+  box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.16);
+}
+
+/* Botón submit */
+#user-form button[type="submit"] {
+  margin-top: 0.35rem;
+  width: 100%;
+  padding: 0.8rem 1.25rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #0c0f16;
+  background-color: var(--accent-admin);
+  border: none;
+  border-radius: var(--radius-sm);
+  transition: transform var(--transition-fast), filter var(--transition-fast);
+}
+
+#user-form button[type="submit"]:hover {
+  filter: brightness(1.08);
+}
+
+#user-form button[type="submit"]:active {
+  transform: scale(0.99);
+}
+
+/* Listado de usuarios */
+.user-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.95rem;
+}
+
+.user-card {
+  background-color: var(--bg-elevated);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 1rem;
+  transition: transform var(--transition-fast), border-color var(--transition-fast);
+}
+
+.user-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(255, 255, 255, 0.18);
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.user-info h4 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 0.15rem;
+  word-break: break-word;
+}
+
+.user-info p {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  word-break: break-word;
+}
+
+/* Botones de acción (Editar / Eliminar) */
+.user-info button {
+  margin-top: 0.45rem;
+  padding: 0.55rem 0.85rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  border-radius: var(--radius-sm);
+  transition: background-color var(--transition-fast), color var(--transition-fast), border-color var(--transition-fast);
+}
+
+.edit-user {
+  background-color: transparent;
+  color: var(--text-primary);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.edit-user:hover {
+  background-color: rgba(255, 255, 255, 0.08);
+  border-color: var(--accent-admin);
+  color: var(--accent-admin);
+}
+
+.delete-user {
+  background-color: rgba(239, 68, 68, 0.12);
+  color: #fca5a5;
+  border: 1px solid rgba(239, 68, 68, 0.35);
+}
+
+.delete-user:hover {
+  background-color: var(--accent-danger);
+  color: #ffffff;
+  border-color: var(--accent-danger);
+}
+
+/* Estado vacío */
+.user-management > p {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  padding: 0.75rem 0;
+}
+
+/* =========================================
+   TABLET / ESCRITORIO (>= 640px)
+   ========================================= */
+@media (min-width: 640px) {
+  .admin-users-container {
+    padding: 1.75rem 1.5rem 3.5rem;
+  }
+
+  .create-user,
+  .user-management {
+    padding: 1.5rem;
+  }
+
+  #user-form {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem 1.25rem;
+  }
+
+  /* Contraseña y botón ocupan todo el ancho en 2 columnas */
+  #user-form .form-group:nth-child(3),
+  #user-form button[type="submit"] {
+    grid-column: 1 / -1;
+  }
+
+  #user-form button[type="submit"] {
+    width: fit-content;
+    min-width: 190px;
+    justify-self: start;
+  }
+
+  .user-list {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.15rem;
+  }
+}
+
+/* =========================================
+   ESCRITORIO AMPLIO (>= 1024px)
+   ========================================= */
+@media (min-width: 1024px) {
+  .admin-users-container > h2 {
+    font-size: 1.75rem;
+  }
+
+  #user-form {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  /* En 3 columnas todos los inputs caben en una fila y el botón queda abajo a la izquierda */
+  #user-form .form-group:nth-child(3) {
+    grid-column: auto;
+  }
+
+  .user-list {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+  }
+}

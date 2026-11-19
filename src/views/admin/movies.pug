@@ -1,102 +1,129 @@
-
 extends ../layouts/main
 
+block styles
+  link(rel=“stylesheet” href=“/css/admin/movies.css”)
+  
 block content
-    section.admin-movies-container
-        h2 Gestión de películas
+    section
+        if user && user.role === "admin"
+            //- Vista de gestión para el administrador
+            h2 Gestión de películas
 
-        //- Formulario para añadir una película
-        section.create-movie
-            h3 Añadir una nueva película
+            section
+                h3 Crear nueva película
 
-            form#movie-form(action="/api/movies" method="POST")
-                div.form-group
-                    label(for="title") Título
-                    input#title(
-                        type="text"
-                        name="title"
-                        placeholder="Título de la película"
-                        required
-                    )
+                form(action="/api/movie" method="POST")
+                    div
+                        label(for="title") Título completo
+                        input#title(
+                            type="text"
+                            name="title"
+                            required
+                        )
 
-                div.form-group
-                    label(for="image") Imagen
-                    input#image(
-                        type="text"
-                        name="image"
-                        placeholder="URL del cartel"
-                        required
-                    )
+                    div
+                        label(for="image") Imagen representativa
+                        input#image(
+                            type="url"
+                            name="image"
+                            required
+                        )
 
-                div.form-group
-                    label(for="year") Año
-                    input#year(
-                        type="number"
-                        name="year"
-                        placeholder="Año de estreno"
-                        required
-                    )
+                    div
+                        label(for="year") Año
+                        input#year(
+                            type="number"
+                            name="year"
+                            required
+                        )
 
-                div.form-group
-                    label(for="director") Director
-                    input#director(
-                        type="text"
-                        name="director"
-                        placeholder="Nombre del director"
-                        required
-                    )
+                    div
+                        label(for="director") Director
+                        input#director(
+                            type="text"
+                            name="director"
+                            required
+                        )
 
-                div.form-group
-                    label(for="genre") Género
-                    input#genre(
-                        type="text"
-                        name="genre"
-                        placeholder="Género de la película"
-                        required
-                    )
+                    div
+                        label(for="genre") Género
+                        input#genre(
+                            type="text"
+                            name="genre"
+                            required
+                        )
 
-                div.form-group
-                    label(for="duration") Duración
-                    input#duration(
-                        type="text"
-                        name="duration"
-                        placeholder="Ejemplo: 120 min"
-                        required
-                    )
+                    div
+                        label(for="duration") Duración
+                        input#duration(
+                            type="text"
+                            name="duration"
+                            required
+                        )
 
-                button(type="submit") Añadir película
+                    button(type="submit") Crear película
 
-        //- Listado de películas almacenadas en MongoDB
-        section.movie-management
-            h3 Películas registradas
+            section
+                h3 Películas registradas
+
+                if movies && movies.length
+                    div
+                        each movie in movies
+                            article
+                                img(
+                                    src=movie.image
+                                    alt="Cartel de " + movie.title
+                                )
+
+                                div
+                                    h4= movie.title
+                                    p Año: #{movie.year}
+                                    p Director: #{movie.director}
+                                    p Género: #{movie.genre}
+                                    p Duración: #{movie.duration}
+
+                                    button(
+                                        type="button"
+                                        data-movie-id=movie._id
+                                    ) Editar
+
+                                    button(
+                                        type="button"
+                                        data-movie-id=movie._id
+                                    ) Eliminar
+                else
+                    p Todavía no hay películas registradas.
+
+        else if user && user.role === "user"
+            //- Vista de películas favoritas para el usuario
+            h2 Mis películas favoritas
 
             if movies && movies.length
-                div.movie-list
+                div
                     each movie in movies
-                        article.movie-card
+                        article.movie-car
                             img(
-                                src=movie.image
-                                alt="Cartel de " + movie.title
+                                src=movie.Poster
+                                alt="Portada de " + movie.Title
                             )
 
-                            div.movie-info
-                                h4= movie.title
-                                p Año: #{movie.year}
-                                p Director: #{movie.director}
-                                p Género: #{movie.genre}
-                                p Duración: #{movie.duration}
+                            div
+                                h3= movie.Title
+                                p Año: #{movie.Year}
+                                p Director: #{movie.Director}
+                                p Género: #{movie.Genre}
+                                p Duración: #{movie.Runtime}
 
-                                //- Acciones de administración
-                                button(
-                                    type="button"
-                                    class="edit-movie"
-                                    data-movie-id=movie._id
-                                ) Editar
+                                a(href="/search/" + encodeURIComponent(movie.Title)) Más detalles
 
                                 button(
                                     type="button"
-                                    class="delete-movie"
-                                    data-movie-id=movie._id
-                                ) Eliminar
+                                    data-movie-id=movie.id
+                                    data-movie-source=movie.source
+                                ) Eliminar de favoritos
             else
-                p Todavía no hay películas registradas.
+                p Todavía no has añadido películas a tus favoritos.
+
+        else
+            //- Usuario no autenticado o rol no reconocido
+            p No tienes permiso para ver esta página.

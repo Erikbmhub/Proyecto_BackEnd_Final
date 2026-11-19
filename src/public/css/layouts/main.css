@@ -1,0 +1,319 @@
+/* =========================================
+   MAIN LAYOUT (Header, Nav, Footer) — MOBILE FIRST
+   ========================================= */
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
+}
+
+/* Cabecera / Barra de navegación superior */
+header {
+  background-color: var(--bg-surface);
+  border-bottom: 1px solid var(--border-subtle);
+  padding: 0.85rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
+}
+
+header h1 {
+  font-size: 1.25rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+  margin: 0;
+  white-space: nowrap;
+}
+
+header h1 a {
+  color: inherit;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+header h1 a::before {
+  content: "";
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--accent-primary);
+}
+
+/* =========================================
+   NAVEGACIÓN PÚBLICA (Barra horizontal)
+   ========================================= */
+.public-nav {
+  position: static;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  padding: 0;
+  min-width: auto;
+}
+
+.public-nav ul {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.public-nav li a {
+  display: inline-block;
+  padding: 0.45rem 0.7rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+  transition: background-color var(--transition-fast), color var(--transition-fast);
+}
+
+.public-nav li a:hover {
+  background-color: rgba(255, 255, 255, 0.08);
+  color: var(--text-primary);
+}
+
+/* Botón destacado "Registrarse" en la navbar */
+.public-nav li a[href="/signup"] {
+  background-color: var(--accent-primary);
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.public-nav li a[href="/signup"]:hover {
+  background-color: var(--accent-primary-hover);
+}
+
+/* =========================================
+   MENÚ DESPLEGABLE (Admin y User logueados)
+   ========================================= */
+details.sidebar-menu {
+  position: relative;
+}
+
+details.sidebar-menu summary.menu-toggle {
+  list-style: none;
+  cursor: pointer;
+  background-color: var(--bg-elevated);
+  border: 1px solid var(--border-subtle);
+  padding: 0.5rem 0.85rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  user-select: none;
+  transition: background-color var(--transition-fast), border-color var(--transition-fast);
+}
+
+details.sidebar-menu summary.menu-toggle::-webkit-details-marker {
+  display: none;
+}
+
+details.sidebar-menu summary.menu-toggle:hover {
+  background-color: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.admin-nav,
+.user-nav {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 0.5rem);
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card);
+  min-width: 220px;
+  padding: 0.5rem;
+  z-index: 110;
+  animation: fadeInDown 0.2s ease;
+}
+
+.admin-nav ul,
+.user-nav ul {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.admin-nav li a,
+.user-nav li a {
+  display: block;
+  padding: 0.6rem 0.75rem;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+  transition: background-color var(--transition-fast), color var(--transition-fast);
+}
+
+.admin-nav li a:hover,
+.user-nav li a:hover {
+  background-color: rgba(255, 255, 255, 0.06);
+  color: var(--text-primary);
+}
+
+/* Botón de cerrar sesión dentro del menú */
+.admin-nav form,
+.user-nav form {
+  margin-top: 0.25rem;
+  padding-top: 0.25rem;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.admin-nav button[type="submit"],
+.user-nav button[type="submit"] {
+  width: 100%;
+  text-align: left;
+  background: transparent;
+  border: none;
+  padding: 0.6rem 0.75rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--accent-danger);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: background-color var(--transition-fast);
+}
+
+.admin-nav button[type="submit"]:hover,
+.user-nav button[type="submit"]:hover {
+  background-color: rgba(239, 68, 68, 0.12);
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* =========================================
+   PIE DE PÁGINA
+   ========================================= */
+footer {
+  background-color: var(--bg-surface);
+  border-top: 1px solid var(--border-subtle);
+  padding: 1.25rem 1rem;
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  margin-top: auto;
+}
+
+/* =========================================
+   TABLET / ESCRITORIO (>= 768px)
+   ========================================= */
+@media (min-width: 768px) {
+  header {
+    padding: 1rem 2.5rem;
+  }
+
+  header h1 {
+    font-size: 1.45rem;
+  }
+
+  .public-nav ul {
+    gap: 0.75rem;
+  }
+
+  .public-nav li a {
+    padding: 0.5rem 0.95rem;
+    font-size: 0.92rem;
+  }
+}
+
+/* =========================================
+   DETALLES SUTILES DE MOVIMIENTO (LAYOUT)
+   ========================================= */
+
+/* Pulso suave en el indicador del logo */
+@keyframes softPulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.25);
+    opacity: 0.75;
+  }
+}
+
+header h1 a::before {
+  animation: softPulse 2.8s ease-in-out infinite;
+}
+
+/* Entrada limpia y rápida del contenido de cada vista */
+@keyframes pageEnter {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+main {
+  animation: pageEnter 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Respetar usuarios con movimiento reducido */
+@media (prefers-reduced-motion: reduce) {
+  header h1 a::before,
+  main,
+  .admin-nav,
+  .user-nav {
+    animation: none !important;
+  }
+}
+
+.public-nav li a {
+  position: relative;
+}
+
+.public-nav li a:not([href="/signup"])::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 2px;
+  width: 0;
+  height: 2px;
+  background-color: var(--accent-primary);
+  transform: translateX(-50%);
+  transition: width 0.22s ease;
+}
+
+.public-nav li a:not([href="/signup"]):hover::after {
+  width: 65%;
+}
