@@ -38,9 +38,9 @@ async function login(req, res) {
             );
             res.cookie('token', token, { httpOnly: true });
             if (user.role === "admin") {
-                res.redirect("/api/movie/")
+                res.redirect("/admin/dashboard")
             } else {
-                res.render('../views/user/dashboard.pug');
+                res.redirect("/user/dashboard");
             }
         } else {
             res.status(401).send('Credenciales inválidas');
