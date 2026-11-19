@@ -10,7 +10,7 @@ const passport = require('passport');
 router.get('/signup', (req, res) => res.render('auth/signup'));
 router.post('/signup', register);
 
-router.get('/', (req, res) => res.redirect('/login'));
+//router.get('/', (req, res) => res.redirect('/login'));
 
 router.get('/login', (req, res) => res.render('auth/login'));
 router.post('/login', login);
@@ -31,7 +31,7 @@ router.get("/auth/google/callback",
 
 //Ruta de cierre de sesion
 
-router.get('/logout', (req, res) => {
+router.get('/logout', (req, res,next) => {
     req.logout((err) => {
         if (err) return next(err);
         req.session.destroy(() => {
@@ -45,11 +45,11 @@ router.get('/logout', (req, res) => {
 //Rutas protegidas por Roles
 
 router.get('/user/dashboard', authMiddleware, authorizeRole('user'), (req, res) => {
-    res.render('user/dashboard', { role: 'user' });
+    res.render('user/dashboard', { user: req.user });
 });
 
-router.get('/admin/dashboard', authMiddleware, authorizeRole('admin'), (req, res) => {
-    res.render('admin/dashboard', { role: 'admin' });
+router.get('/admin/movies', authMiddleware, authorizeRole('admin'), (req, res) => {
+    res.render('admin/movies', { user: req.user });
 });
 
 module.exports = router;

@@ -4,9 +4,9 @@ const mongoose = require("mongoose");
 // Creamos el esquema de favoritos.
 const favoriteSchema = new mongoose.Schema({
 
-    // Identificador del usuario propietario del favorito.
+    // Identificador del usuario propietario del favorito (PostgreSQL).
     userId: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: Number,
         required: true
     },
 

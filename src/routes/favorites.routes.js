@@ -1,10 +1,17 @@
+
 const express = require('express');
-const favoritesController = require("../controllers/favorites.controller")
+const favoritesController = require("../controllers/favorites.controller");
+const authMiddleware = require("../middlewares/auth.middleware");
 
 const router = express.Router();
 
-router.get("/", favoritesController.getFavorites) //Obtener películas favoritas del usuario
-router.post("/", favoritesController.postFavorites) //Guardar favorito del usuario
-router.delete("/", favoritesController.deleteFavorites) //Borrar favorito del usuario
+// Obtener las películas favoritas del usuario autenticado.
+router.get("/", authMiddleware, favoritesController.getFavorites);
 
-module.exports = router
+// Guardar una película en favoritos.
+router.post("/", authMiddleware, favoritesController.postFavorites);
+
+// Eliminar una película de favoritos.
+router.delete("/", authMiddleware, favoritesController.deleteFavorites);
+
+module.exports = router;

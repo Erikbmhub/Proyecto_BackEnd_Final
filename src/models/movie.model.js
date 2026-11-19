@@ -1,0 +1,51 @@
+
+const mongoose = require("mongoose");
+
+// Definimos la estructura de las películas.
+const movieSchema = new mongoose.Schema({
+
+    // Título de la película.
+    title: {
+        type: String,
+        required: true,
+        trim: true
+    },
+
+    // Imagen representativa.
+    image: {
+        type: String,
+        required: true
+    },
+
+    // Año de estreno.
+    year: {
+        type: Number,
+        required: true
+    },
+
+    // Director de la película.
+    director: {
+        type: String,
+        required: true,
+        trim: true
+    },
+
+    // Género cinematográfico.
+    genre: {
+        type: String,
+        required: true,
+        trim: true
+    },
+
+    // Duración de la película.
+    duration: {
+        type: String,
+        required: true
+    }
+
+}, { timestamps: true });
+
+// Creamos y exportamos el modelo.
+const Movie = mongoose.model("Movie", movieSchema);
+
+module.exports = Movie;
