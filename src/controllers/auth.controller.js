@@ -57,7 +57,7 @@ function logoutAuth(req, res) {
 }
 
 module.exports = authController = {
-    signupAuth,
-    loginAuth,
+    register,
+    login,
     logoutAuth
 };
