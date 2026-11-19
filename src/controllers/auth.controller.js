@@ -37,7 +37,11 @@ async function login(req, res) {
                 { expiresIn: '1h' }
             );
             res.cookie('token', token, { httpOnly: true });
-            res.redirect(user.role === 'admin' ? '/admin/dashboard' : '/user/dashboard');
+            if (user.role === "admin") {
+                res.redirect("/api/movie/")
+            } else {
+                res.render('../views/user/dashboard.pug');
+            }
         } else {
             res.status(401).send('Credenciales inválidas');
         }
@@ -47,9 +51,13 @@ async function login(req, res) {
     }
 }
 
-function logout(req, res) {
+function logoutAuth(req, res) {
     res.clearCookie('token');
-    res.redirect('/login');
+    res.redirect('/');
 }
 
-module.exports = { register, login, logout };
+module.exports = authController = {
+    signupAuth,
+    loginAuth,
+    logoutAuth
+};
