@@ -1,4 +1,5 @@
 const Movie = require("../models/movie.model");
+require('../config/db.mongo.js')
 
 async function getMovie(req, res) { //Buscar película o películas
     //pendiente
@@ -8,7 +9,6 @@ async function postMovie(req, res) {
 
     // Recogemos los datos enviados desde el formulario.
     const { title, image, year, director, genre, duration } = req.body;
-
     try {
         // Creamos un nuevo documento de película en MongoDB.
         const newMovie = new Movie({
@@ -19,15 +19,15 @@ async function postMovie(req, res) {
             genre,
             duration
         });
-
+        
         // Guardamos la película en la base de datos.
-        await newMovie.save();
-
+        const tabla = await newMovie.save();
         // Volvemos al panel de administración.
-        res.redirect("/admin/dashboard");
+        console.log(tabla)
+        res.redirect("/movies");
 
     } catch (error) {
-        console.error("Error al crear la película:", error.message);
+        console.error("ERROR EN SAVE:", error.name, error.message, error);
         res.status(500).send("Error al crear la película");
     }
 }
