@@ -1,5 +1,6 @@
 
 const mongoose = require("mongoose");
+require('../config/db.mongo.js')
 
 // Definimos la estructura de las películas.
 const movieSchema = new mongoose.Schema({
