@@ -45,8 +45,8 @@ router.get('/dashboard', authMiddleware, authorizeRole('user'), (req, res) => {
     res.render('user/dashboard.pug', { user: req.user });
 });
 
-router.get('/movies', authMiddleware, authorizeRole('admin'), (req, res) => {
+/*router.get('/movies', authMiddleware, authorizeRole('admin'), (req, res) => {
     res.render('admin/movies.pug', { user: req.user });
-});
+});  */
 
 module.exports = router;
