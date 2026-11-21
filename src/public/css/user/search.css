@@ -1,266 +1,190 @@
-/* =========================================
-   SEARCH VIEW — MOBILE FIRST
-   ========================================= */
-.search-container {
-  width: 100%;
-  max-width: 1280px;
+/* Buscador */
+main > section {
+  width: min(100% - 2rem, 1280px);
   margin: 0 auto;
-  padding: 1.5rem 1rem 3.5rem;
+  padding: 2rem 0 4rem;
   color: var(--text-primary);
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
 }
 
-.search-container > h2 {
-  font-size: 1.65rem;
-  font-weight: 800;
-  letter-spacing: -0.02em;
-  color: var(--text-primary);
-  padding-bottom: 0.5rem;
+main > section > h2 {
+  margin: 0 0 .5rem;
+  padding-bottom: .75rem;
   border-bottom: 1px solid var(--border-subtle);
+  color: var(--text-primary);
+  font-size: clamp(1.65rem, 3vw, 2.2rem);
+  font-weight: 800;
+  letter-spacing: -.025em;
 }
 
-.search-container > p {
-  font-size: 0.95rem;
+main > section > p {
+  margin: 0 0 1.5rem;
   color: var(--text-secondary);
-  margin-top: -1.25rem;
 }
 
-/* Formulario de búsqueda */
-.search-container form {
-  background-color: var(--bg-surface);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-lg);
-  padding: 1.25rem;
-  box-shadow: var(--shadow-card);
+main > section > form {
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  max-width: 720px;
+  margin-bottom: 2.5rem;
+  padding: 1.25rem;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
 }
 
-.form-group {
+main > section > form > div {
   display: flex;
+  flex: 1;
   flex-direction: column;
-  gap: 0.35rem;
+  gap: .45rem;
 }
 
-.form-group label {
-  font-size: 0.85rem;
-  font-weight: 500;
+main > section > form label {
   color: var(--text-secondary);
+  font-size: .9rem;
+  font-weight: 600;
 }
 
-.form-group input {
+main > section > form input {
   width: 100%;
-  padding: 0.75rem 0.85rem;
-  font-size: 0.95rem;
+  min-height: 2.9rem;
+  padding: .75rem .9rem;
   color: var(--text-primary);
-  background-color: var(--bg-input);
+  background: var(--bg-input);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-sm);
   outline: none;
   transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
 }
 
-.form-group input::placeholder {
-  color: var(--text-muted);
-}
+main > section > form input::placeholder { color: var(--text-muted); }
 
-.form-group input:focus {
+main > section > form input:focus {
   border-color: var(--accent-primary);
-  box-shadow: 0 0 0 3px rgba(229, 9, 20, 0.16);
+  box-shadow: 0 0 0 3px rgba(229, 9, 20, .18);
 }
 
-.search-container form button[type="submit"] {
-  width: 100%;
-  padding: 0.8rem 1.25rem;
-  font-size: 0.95rem;
-  font-weight: 600;
-  color: #ffffff;
-  background-color: var(--accent-primary);
-  border: none;
+main > section > form button,
+main > section article button {
+  min-height: 2.8rem;
+  padding: .7rem 1rem;
+  color: #fff;
+  background: var(--accent-primary);
+  border: 0;
   border-radius: var(--radius-sm);
+  box-shadow: 0 4px 12px rgba(229, 9, 20, .2);
+  font: inherit;
+  font-weight: 700;
   cursor: pointer;
-  transition: background-color var(--transition-fast), transform var(--transition-fast);
-  box-shadow: 0 4px 12px rgba(229, 9, 20, 0.25);
+  transition: background var(--transition-fast), transform var(--transition-fast), opacity var(--transition-fast);
 }
 
-.search-container form button[type="submit"]:hover {
-  background-color: var(--accent-primary-hover);
-}
+main > section > form button:hover,
+main > section article button:hover { background: var(--accent-primary-hover); }
 
-.search-container form button[type="submit"]:active {
-  transform: scale(0.99);
-}
+main > section > form button:active,
+main > section article button:active { transform: translateY(1px); }
 
-/* Zona de resultados */
-.search-results {
-  display: flex;
-  flex-direction: column;
-  gap: 1.15rem;
-}
+main > section article button:disabled { opacity: .65; cursor: wait; }
 
-.search-results h3 {
-  font-size: 1.2rem;
-  font-weight: 600;
+main > section > section { margin-top: 2rem; }
+
+main > section > section > h3 {
+  margin: 0 0 1rem;
+  padding-bottom: .6rem;
   color: var(--text-primary);
-  padding-bottom: 0.35rem;
   border-bottom: 1px solid var(--border-subtle);
+  font-size: 1.25rem;
 }
 
-/* Cuadrícula de películas encontradas */
-.movie-list {
+main > section > section > div {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 230px), 1fr));
   gap: 1.25rem;
 }
 
-.movie-card {
+main > section article {
   display: flex;
+  min-width: 0;
   flex-direction: column;
-  background-color: var(--bg-surface);
+  overflow: hidden;
+  background: var(--bg-surface);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-lg);
-  overflow: hidden;
   box-shadow: var(--shadow-card);
   transition: transform var(--transition-fast), border-color var(--transition-fast);
 }
 
-.movie-card:hover {
+main > section article:hover {
   transform: translateY(-3px);
-  border-color: rgba(229, 9, 20, 0.4);
+  border-color: rgba(229, 9, 20, .45);
 }
 
-.movie-card img {
+main > section article img {
+  display: block;
   width: 100%;
-  height: 260px;
+  aspect-ratio: 2 / 3;
   object-fit: cover;
-  background-color: var(--bg-input);
+  background: var(--bg-input);
 }
 
-.movie-info {
-  padding: 1.15rem;
+main > section article > div {
   display: flex;
-  flex-direction: column;
-  gap: 0.4rem;
   flex: 1;
+  flex-direction: column;
+  align-items: stretch;
+  gap: .45rem;
+  padding: 1rem;
 }
 
-.movie-info h4 {
-  font-size: 1.1rem;
-  font-weight: 700;
+main > section article h4 {
+  margin: 0 0 .25rem;
   color: var(--text-primary);
-  margin-bottom: 0.25rem;
-  line-height: 1.3;
+  font-size: 1.05rem;
+  line-height: 1.35;
 }
 
-.movie-info p {
-  font-size: 0.88rem;
-  color: var(--text-secondary);
+main > section article p {
   margin: 0;
-  line-height: 1.4;
+  color: var(--text-secondary);
+  font-size: .88rem;
+  line-height: 1.45;
 }
 
-/* Enlaces y botones dentro de la tarjeta de resultado */
-.movie-info a {
+main > section article a {
   display: inline-flex;
-  align-items: center;
   justify-content: center;
-  margin-top: 0.5rem;
-  padding: 0.6rem 0.85rem;
-  font-size: 0.88rem;
-  font-weight: 600;
+  margin: auto 1rem 0;
+  padding: .65rem .8rem;
   color: var(--text-primary);
-  background-color: var(--bg-elevated);
+  background: var(--bg-elevated);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-sm);
-  transition: background-color var(--transition-fast), border-color var(--transition-fast);
+  font-weight: 650;
+  text-decoration: none;
+  transition: background var(--transition-fast), border-color var(--transition-fast);
 }
 
-.movie-info a:hover {
-  background-color: rgba(255, 255, 255, 0.08);
-  border-color: rgba(255, 255, 255, 0.25);
+main > section article a:hover {
+  background: rgba(255, 255, 255, .08);
+  border-color: rgba(255, 255, 255, .24);
 }
 
-.add-favorite {
-  margin-top: 0.35rem;
-  width: 100%;
-  padding: 0.65rem 0.85rem;
-  font-size: 0.88rem;
-  font-weight: 600;
-  color: #ffffff;
-  background-color: var(--accent-primary);
-  border: none;
-  border-radius: var(--radius-sm);
-  cursor: pointer;
-  transition: background-color var(--transition-fast), transform var(--transition-fast);
-  box-shadow: 0 4px 10px rgba(229, 9, 20, 0.2);
-}
+main > section article button { margin: .65rem 1rem 1rem; }
 
-.add-favorite:hover {
-  background-color: var(--accent-primary-hover);
-}
-
-.add-favorite:active {
-  transform: scale(0.99);
-}
-
-/* Estado sin resultados */
-.search-results > p {
+main > section > section > p {
+  padding: 1.25rem;
   color: var(--text-secondary);
-  font-size: 0.95rem;
-  padding: 1.5rem;
   text-align: center;
-  background-color: var(--bg-surface);
+  background: var(--bg-surface);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-lg);
 }
 
-/* =========================================
-   TABLET / ESCRITORIO (>= 640px)
-   ========================================= */
 @media (min-width: 640px) {
-  .search-container {
-    padding: 2rem 1.5rem 4rem;
-  }
-
-  .search-container > h2 {
-    font-size: 2rem;
-  }
-
-  .search-container form {
-    max-width: 600px;
-    flex-direction: row;
-    align-items: flex-end;
-    gap: 1rem;
-  }
-
-  .search-container form .form-group {
-    flex: 1;
-  }
-
-  .search-container form button[type="submit"] {
-    width: auto;
-    min-width: 140px;
-  }
-
-  .movie-list {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.35rem;
-  }
-}
-
-/* =========================================
-   ESCRITORIO AMPLIO (>= 1024px)
-   ========================================= */
-@media (min-width: 1024px) {
-  .movie-list {
-    grid-template-columns: repeat(4, 1fr);
-    gap: 1.5rem;
-  }
-
-  .movie-card img {
-    height: 280px;
-  }
+  main > section { width: min(100% - 3rem, 1280px); padding-top: 2.5rem; }
+  main > section > form { flex-direction: row; align-items: flex-end; padding: 1.5rem; }
+  main > section > form button { min-width: 145px; }
 }

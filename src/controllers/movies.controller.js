@@ -1,9 +1,52 @@
-const Movie = require("../models/movie.model");
+const MovieModel = require("../models/movie.model");
+const fetchDataFilm = require("../services/tmdb.service.js");
 require("../config/db.mongo.js");
 
 async function getMovie(req, res) {
-  //Buscar película o películas
-  //pendiente
+  const title = req.query.title?.trim();
+  console.log(title)
+  if (!title) {
+    return res.status(400).json({
+      mensaje: "Debes indicar el título de la película",
+    });
+  }
+
+  try {
+    // Primero buscamos coincidencias en MongoDB, sin distinguir mayúsculas.
+    const moviesInDatabase = await MovieModel.find({
+      title: { $regex: title, $options: "i" },
+    }).sort({ title: 1 });
+
+    console.log(moviesInDatabase[0])
+    if (moviesInDatabase.length > 0) {
+      req.session.movies = moviesInDatabase;
+      return res.redirect("/search");
+    }
+
+    // Si no hay coincidencias locales, consultamos TMDB.
+    const moviesFromTmdb = await fetchDataFilm(title);
+
+    if (!moviesFromTmdb || !Array.isArray(moviesFromTmdb)) {
+      return res.status(502).json({
+        mensaje: "No se pudo obtener una respuesta válida de TMDB",
+      });
+    }
+    MovieModel.insertMany(moviesFromTmdb)
+
+    req.session.movies = moviesFromTmdb;
+    return res.redirect("/search");
+
+  } catch (error) {
+    console.error("Error al buscar películas:", error);
+
+    return res.status(500).json({
+      mensaje: "Error al buscar películas",
+    });
+  }
+}
+
+async function getMovieByDetail(req, res) {
+
 }
 
 async function postMovie(req, res) {
@@ -12,7 +55,7 @@ async function postMovie(req, res) {
   console.log("DATOS RECIBIDOS:", req.body);
   try {
     // Creamos un nuevo documento de película en MongoDB.
-    const newMovie = new Movie({
+    const newMovie = new MovieModel({
       title,
       tmdbId,
       image,
@@ -42,7 +85,7 @@ async function putMovie(req, res) {
 
   try {
     // Buscamos la película y actualizamos sus datos.
-    const updatedMovie = await Movie.findByIdAndUpdate(
+    const updatedMovie = await MovieModel.findByIdAndUpdate(
       id,
       { title, tmdbId, image, year, director, genre, duration },
       { returnDocument: "after", runValidators: true }
@@ -76,7 +119,7 @@ async function deleteMovie(req, res) {
 
   try {
     // Buscamos la película por su ID y la eliminamos.
-    const deletedMovie = await Movie.findByIdAndDelete(id);
+    const deletedMovie = await MovieModel.findByIdAndDelete(id);
 
     // Comprobamos si la película existe.
     if (!deletedMovie) {
@@ -99,10 +142,10 @@ async function deleteMovie(req, res) {
   }
 }
 async function getMoviesByAdmin(req, res) {
-    console.log("ENTRANDO EN getMoviesByAdmin");
+  console.log("ENTRANDO EN getMoviesByAdmin");
   try {
     // Recuperamos todas las películas de MongoDB.
-    const movies = await Movie.find().sort({ createdAt: -1 });
+    const movies = await MovieModel.find().sort({ createdAt: -1 });
 
     // Comprobamos los resultados.
     console.log("PELÍCULAS RECUPERADAS:", movies.length);
@@ -128,4 +171,5 @@ module.exports = moviesController = {
   putMovie,
   deleteMovie,
   getMoviesByAdmin,
+  getMovieByDetail
 };

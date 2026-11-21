@@ -12,6 +12,7 @@ router.get("/", authMiddleware, favoritesController.getFavorites);
 router.post("/", authMiddleware, favoritesController.postFavorites);
 
 // Eliminar una película de favoritos.
+router.delete("/:tmdbId", authMiddleware, favoritesController.deleteFavorites);
 router.delete("/", authMiddleware, favoritesController.deleteFavorites);
 
 module.exports = router;

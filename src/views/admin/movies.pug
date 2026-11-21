@@ -122,15 +122,15 @@ block content
                     each movie in movies
                         article.movie-car
                             img(
-                                src=movie.Poster
+                                src=movie.image
                                 alt="Portada de " + movie.Title
                             )
 
                             div
-                                h3= movie.Title
-                                p Año: #{movie.Year}
-                                p Director: #{movie.Director}
-                                p Género: #{movie.Genre}
+                                h3= movie.title
+                                p Año: #{movie.year}
+                                p Director: #{movie.director}
+                                p Género: #{movie.duration}
                                 p Duración: #{movie.Runtime}
 
                                 a(href="/search/" + encodeURIComponent(movie.Title)) Más detalles

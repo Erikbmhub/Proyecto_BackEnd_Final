@@ -46,7 +46,7 @@ html(lang="es")
                                 li
                                     a(href="/search") Buscar películas
                                 li
-                                    a(href="/movies") Mis favoritos
+                                    a(href="/favorites") Mis favoritos
                                 li
                                     form(action="/api/logout" method="POST")
                                         button(type="submit") Salir
@@ -97,3 +97,4 @@ html(lang="es")
         p ~ Proyecto Backend ~
     //- Scripts específicos de cada vista
     block scripts
+    script(src="/js/favorites.js" defer)

@@ -22,22 +22,22 @@ async function getFavorites(req, res) {
 // Guardamos una película en favoritos.
 async function postFavorites(req, res) {
   // Recogemos los datos de la película enviados desde el frontend.
-  const { tmdbId, title, overview, posterPath, releaseDate, voteAverage } =
-    req.body;
+  const { tmdbId, title, description, image, year, imdbRating } = req.body;
 
   try {
     // Obtenemos el ID del usuario desde el JWT.
     const userId = req.user.id;
 
     // Comprobamos que llegan los datos obligatorios.
-    if (!tmdbId || !title) {
+    const parsedTmdbId = Number(tmdbId);
+    if (!Number.isInteger(parsedTmdbId) || !title?.trim()) {
       return res.status(400).json({
         message: "El identificador y el título de la película son obligatorios",
       });
     }
 
     // Comprobamos si la película ya está guardada por este usuario.
-    const existingFavorite = await Favorite.findOne({ userId, tmdbId });
+    const existingFavorite = await Favorite.findOne({ userId, tmdbId: parsedTmdbId });
 
     // Evitamos guardar dos veces la misma película.
     if (existingFavorite) {
@@ -47,15 +47,16 @@ async function postFavorites(req, res) {
     }
 
     // Creamos y guardamos el nuevo favorito en MongoDB.
-    const newFavorite = await Favorite.create({
+    const newFavorite = new Favorite({
       userId,
-      tmdbId,
-      title,
-      overview,
-      posterPath,
-      releaseDate,
-      voteAverage,
+      tmdbId: parsedTmdbId,
+      title: title.trim(),
+      description,
+      image,
+      year,
+      imdbRating,
     });
+    await newFavorite.save();
 
     // Devolvemos el favorito creado.
     res.status(201).json(newFavorite);
@@ -75,14 +76,14 @@ async function postFavorites(req, res) {
 // Eliminamos una película de favoritos.
 async function deleteFavorites(req, res) {
   // Recogemos el ID de la película enviado desde el frontend.
-  const { tmdbId } = req.body;
+  const tmdbId = Number(req.params.tmdbId || req.body.tmdbId);
 
   try {
     // Obtenemos el ID del usuario desde el JWT.
     const userId = req.user.id;
 
     // Comprobamos que llega el identificador de la película.
-    if (!tmdbId) {
+    if (!Number.isInteger(tmdbId)) {
       return res.status(400).json({
         message: "El identificador de la película es obligatorio",
       });

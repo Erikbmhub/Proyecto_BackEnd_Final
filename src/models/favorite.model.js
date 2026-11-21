@@ -24,22 +24,22 @@ const favoriteSchema = new mongoose.Schema({
     },
 
     // Sinopsis de la película.
-    overview: {
+    description: {
         type: String
     },
 
     // Ruta del póster.
-    posterPath: {
+    image: {
         type: String
     },
 
     // Fecha de estreno.
-    releaseDate: {
+    year: {
         type: String
     },
 
     // Puntuación de TMDB.
-    voteAverage: {
+    imdbRating: {
         type: Number
     }
 
