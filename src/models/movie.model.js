@@ -12,6 +12,13 @@ const movieSchema = new mongoose.Schema({
         trim: true
     },
 
+        // Identificador único de la película en TMDb.
+    tmdbId: {
+        type: Number,
+        required: true,
+        unique: true
+    },
+    
     // Imagen representativa.
     image: {
         type: String,

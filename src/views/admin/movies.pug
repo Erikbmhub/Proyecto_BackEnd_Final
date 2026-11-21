@@ -1,8 +1,8 @@
 extends ../layouts/main
 
 block styles
-  link(rel="stylesheet” href=“/css/admin/movies.css")
-  
+  link(rel='stylesheet' href='/css/admin/movies.css')
+
 block content
     section
         if user && user.role === "admin"
@@ -18,6 +18,14 @@ block content
                         input#title(
                             type="text"
                             name="title"
+                            required
+                        )
+
+                    div
+                        label(for="tmdbId") Identificador TMDb
+                        input#tmdbId(
+                            type="number"
+                            name="tmdbId"
                             required
                         )
 
@@ -69,26 +77,37 @@ block content
                 if movies && movies.length
                     div
                         each movie in movies
-                            article
-                                img(
+                            article(
+                                data-movie-id=movie._id
+                                data-title=movie.title
+                                data-tmdb-id=movie.tmdbId
+                                data-image=movie.image
+                                data-year=movie.year
+                                data-director=movie.director
+                                data-genre=movie.genre
+                                data-duration=movie.duration
+                            )
+                                img.movie-image(
                                     src=movie.image
                                     alt="Cartel de " + movie.title
                                 )
 
                                 div
-                                    h4= movie.title
-                                    p Año: #{movie.year}
-                                    p Director: #{movie.director}
-                                    p Género: #{movie.genre}
-                                    p Duración: #{movie.duration}
+                                    h4.movie-title= movie.title
+                                    p.movie-year Año: #{movie.year}
+                                    p.movie-director Director: #{movie.director}
+                                    p.movie-genre Género: #{movie.genre}
+                                    p.movie-duration Duración: #{movie.duration}
 
                                     button(
                                         type="button"
+                                        class="btn-edit-movie"
                                         data-movie-id=movie._id
                                     ) Editar
 
                                     button(
                                         type="button"
+                                        class="btn-delete-movie"
                                         data-movie-id=movie._id
                                     ) Eliminar
                 else
@@ -127,3 +146,6 @@ block content
         else
             //- Usuario no autenticado o rol no reconocido
             p No tienes permiso para ver esta página.
+
+block scripts
+    script(src="/js/main.js")
