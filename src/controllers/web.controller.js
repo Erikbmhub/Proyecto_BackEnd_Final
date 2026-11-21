@@ -19,8 +19,10 @@ async function getViewSearch(req, res) {
   //buscador de películass
   const movies = req.session.movies || [];
   delete req.session.movies;
+  const savedTmdbIds = await Favorite.distinct("tmdbId", { userId: req.user.id });
+  const favoriteIds = savedTmdbIds.map(String);
 
-  res.render("user/search.pug", { movies, user: req.user });
+  res.render("user/search.pug", { movies, favoriteIds, user: req.user });
 }
 
 //http://localhost:3001/search/:title
@@ -34,36 +36,32 @@ async function getViewSearchByDetail(req, res) {
       return res.status(404).send("Película no encontrada");
     }
 
-    return res.render("user/detail.pug", { movie, user: req.user });
+    const isFavorite = await Favorite.exists({ userId: req.user.id, tmdbId: movie.tmdbId });
+    return res.render("user/detail.pug", { movie, isFavorite: Boolean(isFavorite), user: req.user });
   } catch (error) {
     console.error("Error al cargar el detalle:", error);
     return res.status(500).send("Error al cargar la película");
   }
 }
 
-async function getViewFavorites(req, res) {
-  try {
-    const favorites = await Favorite.find({ userId: req.user.id }).sort({ createdAt: -1 });
-    return res.render("user/favorites.pug", { favorites, user: req.user });
-  } catch (error) {
-    console.error("Error al cargar los favoritos:", error);
-    return res.status(500).send("Error al cargar los favoritos");
-  }
-}
-
 //http://localhost:3001/movies
-// http://localhost:3001/movies
 async function getViewMovies(req, res) {
   try {
-    // Recuperamos todas las películas creadas.
-    const movies = await MovieModel.find().sort({ createdAt: -1 });
-    // Renderizamos la vista y enviamos las películas.
+    if (!["user", "admin"].includes(req.user.role)) {
+      return res.status(403).send("No tienes permiso para ver esta página");
+    }
+
+    // Los usuarios ven sus favoritos; el administrador conserva su catálogo de gestión.
+    const movies = req.user.role === "user"
+      ? await Favorite.find({ userId: req.user.id }).sort({ createdAt: -1 })
+      : await MovieModel.find().sort({ createdAt: -1 });
+
     res.render("admin/movies.pug", {
       movies,
       user: req.user,
     });
   } catch (error) {
-    console.error("Error al recuperar las películas:", error);
+    console.error("Error al cargar las películas:", error);
     res.status(500).send("Error al cargar las películas");
   }
 }
@@ -91,7 +89,6 @@ module.exports = webControllers = {
   getViewDashboard,
   getViewSearch,
   getViewSearchByDetail,
-  getViewFavorites,
   getViewMovies,
   getViewProfile,
   getViewUsers,

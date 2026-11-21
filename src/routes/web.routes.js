@@ -11,7 +11,6 @@ router.get("/signup", webController.getViewSignUp);
 router.get("/dashboard", authMiddleware, authorizeRole("user"), webController.getViewDashboard);
 router.get("/search", authMiddleware, authorizeRole("user"), webController.getViewSearch);
 router.get("/search/:title", authMiddleware, authorizeRole("user"), webController.getViewSearchByDetail);
-router.get("/favorites", authMiddleware, authorizeRole("user"), webController.getViewFavorites);
 router.get("/movies", authMiddleware, webController.getViewMovies);
 router.get("/profile", authMiddleware, webController.getViewProfile);
 router.get("/users", authMiddleware, authorizeRole("admin"), webController.getViewUsers);
