@@ -1,5 +1,6 @@
 // Importamos el modelo de películas.
-const Movie = require("../models/movie.model");
+const MovieModel = require("../models/movie.model");
+const Favorite = require("../models/favorite.model");
 
 //http://localhost:3001
 async function getViewHome(req, res) {
@@ -16,13 +17,38 @@ async function getViewDashboard(req, res) {
 //http://localhost:3001/search
 async function getViewSearch(req, res) {
   //buscador de películass
-  res.render("user/search.pug");
+  const movies = req.session.movies || [];
+  delete req.session.movies;
+
+  res.render("user/search.pug", { movies, user: req.user });
 }
 
 //http://localhost:3001/search/:title
 async function getViewSearchByDetail(req, res) {
-  //vista detalle de la película
-  res.render("user/detail.pug");
+  try {
+    console.log(req.params.title)
+    const title = req.params.title;
+    const movie = await MovieModel.findOne({ title });
+
+    if (!movie) {
+      return res.status(404).send("Película no encontrada");
+    }
+
+    return res.render("user/detail.pug", { movie, user: req.user });
+  } catch (error) {
+    console.error("Error al cargar el detalle:", error);
+    return res.status(500).send("Error al cargar la película");
+  }
+}
+
+async function getViewFavorites(req, res) {
+  try {
+    const favorites = await Favorite.find({ userId: req.user.id }).sort({ createdAt: -1 });
+    return res.render("user/favorites.pug", { favorites, user: req.user });
+  } catch (error) {
+    console.error("Error al cargar los favoritos:", error);
+    return res.status(500).send("Error al cargar los favoritos");
+  }
 }
 
 //http://localhost:3001/movies
@@ -30,7 +56,7 @@ async function getViewSearchByDetail(req, res) {
 async function getViewMovies(req, res) {
   try {
     // Recuperamos todas las películas creadas.
-    const movies = await Movie.find().sort({ createdAt: -1 });
+    const movies = await MovieModel.find().sort({ createdAt: -1 });
     // Renderizamos la vista y enviamos las películas.
     res.render("admin/movies.pug", {
       movies,
@@ -65,6 +91,7 @@ module.exports = webControllers = {
   getViewDashboard,
   getViewSearch,
   getViewSearchByDetail,
+  getViewFavorites,
   getViewMovies,
   getViewProfile,
   getViewUsers,

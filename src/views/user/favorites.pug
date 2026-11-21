@@ -1,0 +1,28 @@
+extends ../layouts/main
+
+block styles
+    link(rel="stylesheet" href="/css/user/favorites.css")
+
+block content
+    section.favorites-container
+        h2 Mis películas favoritas
+        if favorites && favorites.length
+            each movie in favorites
+                article.favorite-item(data-tmdb-id=movie.tmdbId)
+                    img(
+                        src=movie.image ? `https://image.tmdb.org/t/p/w500${movie.image}` : "/images/no-poster.png"
+                        alt="Portada de " + movie.title
+                    )
+                    div
+                        h3= movie.title
+                        if movie.year
+                            p Año: #{movie.year}
+                        if movie.imdbRating != null
+                            p Valoración: #{movie.imdbRating}
+                        if movie.description
+                            p= movie.description
+                        button.remove-favorite(type="button" data-tmdb-id=movie.tmdbId) Eliminar de favoritos
+        else
+            p Aún no tienes películas favoritas.
+        a(href="/search") Buscar películas
+
