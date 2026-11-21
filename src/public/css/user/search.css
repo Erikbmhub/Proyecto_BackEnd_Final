@@ -89,6 +89,19 @@ main > section article button:active { transform: translateY(1px); }
 
 main > section article button:disabled { opacity: .65; cursor: wait; }
 
+main > section article button.is-favorite {
+  color: #fecaca;
+  background: rgba(239, 68, 68, .16);
+  border: 1px solid rgba(239, 68, 68, .45);
+  box-shadow: none;
+}
+
+main > section article button.is-favorite:hover {
+  color: #fff;
+  background: var(--accent-danger);
+  border-color: var(--accent-danger);
+}
+
 main > section > section { margin-top: 2rem; }
 
 main > section > section > h3 {

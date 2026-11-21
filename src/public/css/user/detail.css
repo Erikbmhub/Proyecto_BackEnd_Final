@@ -96,6 +96,19 @@ main > section > div:last-child button {
 main > section > div:last-child button:hover { background: var(--accent-primary-hover); }
 main > section > div:last-child button:disabled { opacity: .65; cursor: wait; }
 
+main > section > div:last-child button.is-favorite {
+  color: #fecaca;
+  background: rgba(239, 68, 68, .16);
+  border-color: rgba(239, 68, 68, .45);
+  box-shadow: none;
+}
+
+main > section > div:last-child button.is-favorite:hover {
+  color: #fff;
+  background: var(--accent-danger);
+  border-color: var(--accent-danger);
+}
+
 main > section > div:last-child a {
   color: var(--text-primary);
   background: var(--bg-elevated);

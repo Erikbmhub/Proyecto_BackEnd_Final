@@ -1,7 +1,7 @@
 extends ../layouts/main
 
 block styles
-    link(rel="stylesheet" href="/css/user/search.css")
+    //- link(rel="stylesheet" href="/css/user/search.css")
 
 block content
     section
@@ -43,13 +43,15 @@ block content
                                 p Año: #{movie.year}
                                 p Director: #{movie.director}
                                 p Género: #{movie.genre}
-                                p Duración: #{movie.duration}
+                                p Duración: #{movie.duration} min
 
                                 //- Enlace a los detalles (vista "details.pug")
                                 a(href="/search/" + encodeURIComponent(movie.title)) Más detalles
 
                                 //- Botón para añadir a favoritos
-                                button.favorite-toggle(
+                                - const isFavorite = favoriteIds.includes(String(movie.tmdbId || movie.id))
+                                button(
+                                    class=isFavorite ? "favorite-toggle is-favorite" : "favorite-toggle"
                                     type="button"
                                     data-tmdb-id=movie.tmdbId || movie.id
                                     data-title=movie.title
@@ -57,6 +59,6 @@ block content
                                     data-year=movie.year
                                     data-description=movie.description
                                     data-rating=movie.imdbRating
-                                ) Añadir a favoritos
+                                )= isFavorite ? "Eliminar de favoritos" : "Añadir a favoritos"
             else
                 p No hay resultados para mostrar.

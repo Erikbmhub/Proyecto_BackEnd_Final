@@ -1,7 +1,10 @@
 extends ../layouts/main
 
 block styles
-  link(rel='stylesheet' href='/css/admin/movies.css')
+    if user && user.role === "user"
+        //- link(rel="stylesheet" href="/css/user/favorites.css")
+    else
+        link(rel="stylesheet" href="/css/admin/movies.css")
 
 block content
     section
@@ -114,34 +117,32 @@ block content
                     p Todavía no hay películas registradas.
 
         else if user && user.role === "user"
-            //- Vista de películas favoritas para el usuario
-            h2 Mis películas favoritas
+            section.favorites-container
+                h2 Mis películas favoritas
 
-            if movies && movies.length
-                div
+                if movies && movies.length
                     each movie in movies
-                        article.movie-car
+                        article.favorite-item(data-tmdb-id=movie.tmdbId)
                             img(
-                                src=movie.image
-                                alt="Portada de " + movie.Title
+                                src=movie.image ? `https://image.tmdb.org/t/p/w500${movie.image}` : "/images/no-poster.png"
+                                alt="Portada de " + movie.title
                             )
 
                             div
                                 h3= movie.title
-                                p Año: #{movie.year}
-                                p Director: #{movie.director}
-                                p Género: #{movie.duration}
-                                p Duración: #{movie.Runtime}
+                                if movie.year
+                                    p Año: #{movie.year}
+                                if movie.imdbRating != null
+                                    p Valoración: #{movie.imdbRating}
+                                if movie.description
+                                    p= movie.description
 
-                                a(href="/search/" + encodeURIComponent(movie.Title)) Más detalles
+                                a(href="/search/" + encodeURIComponent(movie.title)) Más detalles
+                                button.remove-favorite(type="button" data-tmdb-id=movie.tmdbId) Eliminar de favoritos
+                else
+                    p Aún no tienes películas favoritas.
 
-                                button(
-                                    type="button"
-                                    data-movie-id=movie.id
-                                    data-movie-source=movie.source
-                                ) Eliminar de favoritos
-            else
-                p Todavía no has añadido películas a tus favoritos.
+                a(href="/search") Buscar películas
 
         else
             //- Usuario no autenticado o rol no reconocido
