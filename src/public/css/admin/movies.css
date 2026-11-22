@@ -1,3 +1,6 @@
+
+
+
 section > h2 {
   font-size: var(--text-2xl);
   font-weight: 700;
@@ -155,6 +158,8 @@ section > section > h3 + div > article > div {
   color: var(--bg-primary);
 }
 
+
+
 @media (min-width: 640px) {
   form[action="/api/movie"] {
     grid-template-columns: repeat(2, 1fr);
@@ -177,4 +182,13 @@ section > section > h3 + div > article > div {
   section > section > h3 + div {
     grid-template-columns: repeat(3, 1fr);
   }
+}
+
+.favorite-item button.remove-favorite {
+  background-color: var(--accent-secondary);
+  color: var(--bg-primary);
+  border: 1px solid var(--accent-secondary);
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-sm);
+  font-weight: 600;
 }

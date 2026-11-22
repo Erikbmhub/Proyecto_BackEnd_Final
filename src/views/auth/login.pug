@@ -4,11 +4,11 @@ block styles
     link(rel="stylesheet" href="/css/auth/login.css")
 
 block content
-    section.login-container
+    section.login-card
         h2 Iniciar sesión
 
-        //- Formulario de acceso
-        form#login-form(action="/api/auth/login" method="POST")
+        //- Formulario de inicio de sesión
+        form#login-form(action="/api/auth/login" method="POST" novalidate)
             //- Correo electrónico
             div.form-group
                 label(for="email") Correo electrónico
@@ -16,8 +16,10 @@ block content
                     type="email"
                     name="email"
                     placeholder="Introduce tu correo electrónico"
+                    autocomplete="email"
                     required
                 )
+                small.field-error(data-error-for="email" role="alert" hidden)
 
             //- Contraseña
             div.form-group
@@ -26,18 +28,26 @@ block content
                     type="password"
                     name="password"
                     placeholder="Introduce tu contraseña"
+                    autocomplete="current-password"
                     required
                 )
+                small.field-error(data-error-for="password" role="alert" hidden)
 
-            //- Botón para iniciar sesión
-            button(type="submit") Entrar
+            //- Error general (fallo de red o credenciales sin campo específico)
+            p#form-general-error.form-general-error(role="alert" hidden)
+
+            //- Botón de acceso
+            button.btn-submit(type="submit") Iniciar sesión
 
         //- Acceso mediante Google
-        div.oauth-container
-            p O inicia sesión con:
-            a(href="/api/auth/google") Continuar con Google
+        div.oauth-box
+            p O continúa con:
+            a.btn-google(href="/api/auth/google") Continuar con Google
 
-        //- Enlace al registro
-        p
-            | ¿Todavía no tienes cuenta?
+        //- Enlace a registro
+        p.auth-switch
+            | ¿No tienes cuenta?
             a(href="/signup") Regístrate aquí
+
+block scripts
+    script(src="/js/login.js" defer)

@@ -139,7 +139,7 @@ block content
                                     p= movie.description
 
                                 a(href="/search/" + encodeURIComponent(movie.title)) Más detalles
-                                button.remove-favorite(type="button" data-tmdb-id=movie.tmdbId) Eliminar de favoritos
+                                button#deleteFavorite(type="button" data-tmdb-id=movie.tmdbId) Eliminar de favoritos
                 else
                     p Aún no tienes películas favoritas.
 

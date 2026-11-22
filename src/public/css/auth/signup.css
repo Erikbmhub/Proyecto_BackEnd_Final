@@ -120,3 +120,44 @@ section > p a {
     padding: var(--space-8);
   }
 }
+
+:root {
+    --signup-error-color: #f87171;
+    --signup-error-bg: rgba(248, 113, 113, 0.1);
+    --signup-error-size: 0.85rem;
+    --signup-field-gap: 0.35rem;
+}
+
+.form-field {
+    display: flex;
+    flex-direction: column;
+    gap: var(--signup-field-gap);
+    margin-bottom: 1rem;
+}
+
+.form-field input.input-error {
+    border-color: var(--signup-error-color);
+    background-color: var(--signup-error-bg);
+}
+
+.field-error {
+    color: var(--signup-error-color);
+    font-size: var(--signup-error-size);
+    line-height: 1.35;
+}
+
+.form-general-error {
+    margin: 0.75rem 0;
+    padding: 0.65rem 0.85rem;
+    border-radius: 0.5rem;
+    border: 1px solid var(--signup-error-color);
+    background-color: var(--signup-error-bg);
+    color: var(--signup-error-color);
+    font-size: var(--signup-error-size);
+}
+
+@media (min-width: 768px) {
+    .field-error {
+        font-size: 0.875rem;
+    }
+}

@@ -4,50 +4,57 @@ block styles
     link(rel="stylesheet" href="/css/auth/signup.css")
 
 block content
-    section
+    section.auth-card
         h2 Crear una cuenta
 
         //- Formulario de registro
-        form(action="/api/auth/signup" method="POST")
+        form#signup-form(action="/api/auth/signup" method="POST" novalidate)
             //- Nombre del usuario
-            div
+            div.form-field
                 label(for="username") Nombre
-                input(
+                input#username(
                     type="text"
                     name="username"
                     placeholder="Introduce tu nombre"
                     required
                 )
+                small.field-error(data-error-for="username" role="alert" hidden)
 
             //- Correo electrónico
-            div
+            div.form-field
                 label(for="email") Correo electrónico
-                input(
+                input#email(
                     type="email"
                     name="email"
                     placeholder="Introduce tu correo electrónico"
                     required
                 )
+                small.field-error(data-error-for="email" role="alert" hidden)
 
             //- Contraseña
-            div
+            div.form-field
                 label(for="password") Contraseña
-                input(
+                input#password(
                     type="password"
                     name="password"
                     placeholder="Crea una contraseña"
                     required
                 )
+                small.field-error(data-error-for="password" role="alert" hidden)
 
             //- Confirmación de contraseña
-            div
+            div.form-field
                 label(for="confirmPassword") Confirmar contraseña
-                input(
+                input#confirmPassword(
                     type="password"
                     name="confirmPassword"
                     placeholder="Repite tu contraseña"
                     required
                 )
+                small.field-error(data-error-for="confirmPassword" role="alert" hidden)
+
+            //- Error general (por ejemplo, fallo de red o campos sin input asociado)
+            p#form-general-error.form-general-error(role="alert" hidden)
 
             //- Botón para registrarse
             button(type="submit") Crear cuenta
@@ -61,3 +68,6 @@ block content
         p
             | ¿Ya tienes una cuenta?
             a(href="/login") Inicia sesión aquí
+
+block scripts
+    script(src="/js/signup.js" defer)

@@ -1,19 +1,13 @@
 const express = require('express');
 const router = express.Router();
-const { register, login, logout } = require('../controllers/auth.controller');
-const authMiddleware = require('../middlewares/auth.middleware');
-const authorizeRole = require('../middlewares/role.middleware');
+const { register, login, logoutAuth } = require('../controllers/auth.controller');
+const { signupValidation, loginValidation } = require('../validation/auth.validation');
 const passport = require('passport');
 
 // Rutas de Autentificacion Local - Registro + Login clasico
-
-//router.get('/signup', (req, res) => res.render('auth/signup'));
-router.post('/signup', register);
-
-router.post('/login', login);
-
+router.post('/signup', signupValidation, register);
+router.post('/login', loginValidation, login);
 //***Rutas de google OAuth ( Iniciar sesion con Google )***
-
 router.get('/google', passport.authenticate('google', { scope: ['email', 'profile'], prompt: 'select_account' }));
 
 // Callback de Google
@@ -37,16 +31,6 @@ router.get('/logout', (req, res,next) => {
             res.redirect('/login');
         });
     });
-});
-
-//Rutas protegidas por Roles
-
-// router.get('/dashboard', authMiddleware, authorizeRole('user'), (req, res) => {
-//     res.render('user/dashboard.pug', { user: req.user });
-// });
-
-/*router.get('/movies', authMiddleware, authorizeRole('admin'), (req, res) => {
-    res.render('admin/movies.pug', { user: req.user });
-});  */
+}, logoutAuth);
 
 module.exports = router;

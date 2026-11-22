@@ -1,5 +1,5 @@
 const MovieModel = require("../models/movie.model");
-const fetchDataFilm = require("../services/tmdb.service.js");
+const { fetchDataFilm } = require("../services/tmdb.service.js");
 require("../config/db.mongo.js");
 
 async function getMovie(req, res) {
