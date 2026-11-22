@@ -7,7 +7,7 @@ const passport = require('passport');
 
 // Rutas de Autentificacion Local - Registro + Login clasico
 
-router.get('/signup', (req, res) => res.render('auth/signup'));
+//router.get('/signup', (req, res) => res.render('auth/signup'));
 router.post('/signup', register);
 
 router.post('/login', login);
@@ -21,8 +21,7 @@ router.get("/google/callback",
     passport.authenticate('google', { failureRedirect: '/login' }),
     (req, res) => {
         res.cookie('token', req.user.token, { httpOnly: true });
-        const redirectUrl = req.user.user.role === 'admin' ? '/admin/movies' : '/user/dashboard';
-        const redirectUrl1 = req.user.user.role === 'admin' ? '/movies' : '/dashboard';
+        const redirectUrl = req.user.user.role === 'admin' ? '/movies' : '/dashboard';
         res.redirect(redirectUrl);
     }
 );
@@ -42,9 +41,9 @@ router.get('/logout', (req, res,next) => {
 
 //Rutas protegidas por Roles
 
-router.get('/dashboard', authMiddleware, authorizeRole('user'), (req, res) => {
-    res.render('user/dashboard.pug', { user: req.user });
-});
+// router.get('/dashboard', authMiddleware, authorizeRole('user'), (req, res) => {
+//     res.render('user/dashboard.pug', { user: req.user });
+// });
 
 /*router.get('/movies', authMiddleware, authorizeRole('admin'), (req, res) => {
     res.render('admin/movies.pug', { user: req.user });

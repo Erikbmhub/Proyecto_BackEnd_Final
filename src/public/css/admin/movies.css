@@ -1,271 +1,180 @@
-/* =========================================
-   ADMIN MOVIES — MOBILE FIRST
-   ========================================= */
-.admin-movies-container {
-  width: 100%;
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 1.25rem 1rem 3rem;
-  color: var(--text-primary);
-}
-
-.admin-movies-container > h2 {
-  font-size: 1.5rem;
+section > h2 {
+  font-size: var(--text-2xl);
   font-weight: 700;
+  margin-bottom: var(--space-6);
   letter-spacing: -0.02em;
-  margin-bottom: 1.25rem;
-  padding-bottom: 0.65rem;
-  border-bottom: 1px solid var(--border-subtle);
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
 }
 
-.admin-movies-container > h2::before {
-  content: "ADMIN";
-  font-size: 0.7rem;
-  font-weight: 800;
-  letter-spacing: 0.08em;
-  color: #0c0f16;
-  background-color: var(--accent-admin);
-  padding: 0.2rem 0.45rem;
-  border-radius: 6px;
-}
-
-/* Bloques: Crear película y Listado */
-.create-movie,
-.movie-management {
+section > section {
   background-color: var(--bg-surface);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-lg);
-  padding: 1.15rem;
-  box-shadow: var(--shadow-card);
+  padding: var(--space-6);
+  margin-bottom: var(--space-8);
+  box-shadow: var(--shadow-sm);
 }
 
-.create-movie {
-  margin-bottom: 2rem;
+section > section > h3 {
+  font-size: var(--text-xl);
+  margin-bottom: var(--space-4);
+  color: var(--accent-primary);
 }
 
-.create-movie h3,
-.movie-management h3 {
-  font-size: 1.15rem;
-  font-weight: 600;
-  margin-bottom: 1rem;
-  color: var(--text-primary);
-}
-
-/* Formulario en móvil (1 columna) */
-#movie-form {
+/* Formulario de creación */
+form[action="/api/movie"] {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 0.95rem;
+  gap: var(--space-4);
 }
 
-.form-group {
+form[action="/api/movie"] > div {
   display: flex;
   flex-direction: column;
-  gap: 0.35rem;
+  gap: var(--space-2);
 }
 
-.form-group label {
-  font-size: 0.85rem;
-  font-weight: 500;
+form[action="/api/movie"] label {
+  font-size: var(--text-sm);
   color: var(--text-secondary);
+  font-weight: 500;
 }
 
-.form-group input {
+form[action="/api/movie"] input {
   width: 100%;
-  padding: 0.7rem 0.85rem;
-  font-size: 0.95rem;
-  color: var(--text-primary);
-  background-color: var(--bg-input);
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-md);
   border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-sm);
-  outline: none;
+  background-color: var(--bg-elevated);
+  color: var(--text-primary);
   transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
 }
 
-.form-group input::placeholder {
-  color: var(--text-muted);
+form[action="/api/movie"] input:focus {
+  outline: none;
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.18);
 }
 
-.form-group input:focus {
-  border-color: var(--accent-admin);
-  box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.16);
-}
-
-/* Botón submit del formulario */
-#movie-form button[type="submit"] {
-  margin-top: 0.35rem;
-  width: 100%;
-  padding: 0.8rem 1.25rem;
-  font-size: 0.95rem;
-  font-weight: 600;
-  color: #0c0f16;
-  background-color: var(--accent-admin);
+form[action="/api/movie"] button[type="submit"] {
+  justify-self: start;
+  padding: var(--space-3) var(--space-6);
   border: none;
-  border-radius: var(--radius-sm);
-  cursor: pointer;
-  transition: transform var(--transition-fast), filter var(--transition-fast);
+  border-radius: var(--radius-md);
+  background-color: var(--accent-primary);
+  color: var(--bg-primary);
+  font-weight: 600;
+  transition: background-color var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
 }
 
-#movie-form button[type="submit"]:hover {
-  filter: brightness(1.08);
+form[action="/api/movie"] button[type="submit"]:hover {
+  background-color: var(--accent-primary-hover);
+  box-shadow: var(--shadow-glow);
+  transform: translateY(-1px);
 }
 
-#movie-form button[type="submit"]:active {
-  transform: scale(0.99);
-}
-
-/* Listado de películas */
-.movie-list {
+/* Listado de películas registradas */
+section > section > h3 + div {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 1rem;
+  gap: var(--space-6);
 }
 
-.movie-card {
-  display: flex;
-  flex-direction: column;
+section > section > h3 + div > article {
+  display: grid;
+  grid-template-columns: 1fr;
   background-color: var(--bg-elevated);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-md);
   overflow: hidden;
-  transition: transform var(--transition-fast), border-color var(--transition-fast);
+  transition: transform var(--transition-base), border-color var(--transition-base), box-shadow var(--transition-base);
 }
 
-.movie-card:hover {
+section > section > h3 + div > article:hover {
   transform: translateY(-3px);
-  border-color: rgba(255, 255, 255, 0.18);
+  border-color: rgba(56, 189, 248, 0.45);
+  box-shadow: var(--shadow-md);
 }
 
-.movie-card img {
+.movie-image {
   width: 100%;
-  height: 240px;
+  aspect-ratio: 2 / 3;
   object-fit: cover;
-  display: block;
-  background-color: var(--bg-input);
 }
 
-.movie-info {
-  padding: 0.95rem;
+section > section > h3 + div > article > div {
+  padding: var(--space-4);
   display: flex;
   flex-direction: column;
-  gap: 0.35rem;
-  flex: 1;
+  gap: var(--space-2);
 }
 
-.movie-info h4 {
-  font-size: 1.05rem;
+.movie-title {
+  font-size: var(--text-lg);
   font-weight: 700;
   color: var(--text-primary);
-  margin-bottom: 0.25rem;
-  line-height: 1.3;
 }
 
-.movie-info p {
-  font-size: 0.85rem;
+.movie-year,
+.movie-director,
+.movie-genre,
+.movie-duration {
+  font-size: var(--text-sm);
   color: var(--text-secondary);
-  margin: 0;
-  line-height: 1.4;
 }
 
-/* Botones de acción en cada tarjeta */
-.movie-info button {
-  margin-top: 0.5rem;
-  padding: 0.55rem 0.8rem;
-  font-size: 0.85rem;
-  font-weight: 600;
+.btn-edit-movie,
+.btn-delete-movie {
+  padding: var(--space-2) var(--space-3);
   border-radius: var(--radius-sm);
-  cursor: pointer;
+  border: 1px solid transparent;
+  font-size: var(--text-sm);
+  font-weight: 600;
   transition: background-color var(--transition-fast), color var(--transition-fast), border-color var(--transition-fast);
 }
 
-.edit-movie {
-  background-color: transparent;
-  color: var(--text-primary);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+.btn-edit-movie {
+  margin-top: var(--space-2);
+  background-color: rgba(56, 189, 248, 0.14);
+  color: var(--accent-primary);
+  border-color: rgba(56, 189, 248, 0.35);
 }
 
-.edit-movie:hover {
-  background-color: rgba(255, 255, 255, 0.08);
-  border-color: var(--accent-admin);
-  color: var(--accent-admin);
+.btn-edit-movie:hover {
+  background-color: var(--accent-primary);
+  color: var(--bg-primary);
 }
 
-.delete-movie {
-  background-color: rgba(239, 68, 68, 0.12);
-  color: #fca5a5;
-  border: 1px solid rgba(239, 68, 68, 0.35);
+.btn-delete-movie {
+  background-color: rgba(251, 113, 133, 0.14);
+  color: var(--accent-secondary);
+  border-color: rgba(251, 113, 133, 0.35);
 }
 
-.delete-movie:hover {
-  background-color: var(--accent-danger);
-  color: #ffffff;
-  border-color: var(--accent-danger);
+.btn-delete-movie:hover {
+  background-color: var(--accent-secondary);
+  color: var(--bg-primary);
 }
 
-/* Estado vacío */
-.movie-management > p {
-  color: var(--text-secondary);
-  font-size: 0.95rem;
-  padding: 1rem 0;
-}
-
-/* =========================================
-   TABLET / ESCRITORIO (>= 640px)
-   ========================================= */
 @media (min-width: 640px) {
-  .admin-movies-container {
-    padding: 1.75rem 1.5rem 3.5rem;
-  }
-
-  .create-movie,
-  .movie-management {
-    padding: 1.5rem;
-  }
-
-  #movie-form {
+  form[action="/api/movie"] {
     grid-template-columns: repeat(2, 1fr);
-    gap: 1rem 1.25rem;
   }
 
-  #movie-form .form-group:nth-child(1),
-  #movie-form .form-group:nth-child(2),
-  #movie-form button[type="submit"] {
+  form[action="/api/movie"] button[type="submit"] {
     grid-column: 1 / -1;
   }
 
-  #movie-form button[type="submit"] {
-    width: fit-content;
-    min-width: 200px;
-    justify-self: start;
-  }
-
-  .movie-list {
+  section > section > h3 + div {
     grid-template-columns: repeat(2, 1fr);
-    gap: 1.25rem;
   }
 }
 
-/* =========================================
-   ESCRITORIO AMPLIO (>= 1024px)
-   ========================================= */
 @media (min-width: 1024px) {
-  .admin-movies-container > h2 {
-    font-size: 1.75rem;
-  }
-
-  #movie-form {
+  form[action="/api/movie"] {
     grid-template-columns: repeat(3, 1fr);
   }
 
-  .movie-list {
-    grid-template-columns: repeat(4, 1fr);
-    gap: 1.35rem;
-  }
-
-  .movie-card img {
-    height: 270px;
+  section > section > h3 + div {
+    grid-template-columns: repeat(3, 1fr);
   }
 }

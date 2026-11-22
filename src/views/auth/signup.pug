@@ -1,60 +1,63 @@
+extends ../layouts/main
+
 block styles
-  link(rel="stylesheet” href=“/css/auth/signup.css")
-  
-section
-    h2 Crear una cuenta
+    link(rel="stylesheet" href="/css/auth/signup.css")
 
-    //- Formulario de registro
-    form(action="/signup" method="POST")
-        //- Nombre del usuario
+block content
+    section
+        h2 Crear una cuenta
+
+        //- Formulario de registro
+        form(action="/api/auth/signup" method="POST")
+            //- Nombre del usuario
+            div
+                label(for="username") Nombre
+                input(
+                    type="text"
+                    name="username"
+                    placeholder="Introduce tu nombre"
+                    required
+                )
+
+            //- Correo electrónico
+            div
+                label(for="email") Correo electrónico
+                input(
+                    type="email"
+                    name="email"
+                    placeholder="Introduce tu correo electrónico"
+                    required
+                )
+
+            //- Contraseña
+            div
+                label(for="password") Contraseña
+                input(
+                    type="password"
+                    name="password"
+                    placeholder="Crea una contraseña"
+                    required
+                )
+
+            //- Confirmación de contraseña
+            div
+                label(for="confirmPassword") Confirmar contraseña
+                input(
+                    type="password"
+                    name="confirmPassword"
+                    placeholder="Repite tu contraseña"
+                    required
+                )
+
+            //- Botón para registrarse
+            button(type="submit") Crear cuenta
+
+        //- Registro mediante Google
         div
-            label(for="username") Nombre
-            input(
-                type="text"
-                name="username"
-                placeholder="Introduce tu nombre"
-                required
-            )
+            p O regístrate con:
+            a(href="/api/auth/google") Continuar con Google
 
-        //- Correo electrónico
-        div
-            label(for="email") Correo electrónico
-            input(
-                type="email"
-                name="email"
-                placeholder="Introduce tu correo electrónico"
-                required
-            )
-
-        //- Contraseña
-        div
-            label(for="password") Contraseña
-            input(
-                type="password"
-                name="password"
-                placeholder="Crea una contraseña"
-                required
-            )
-
-        //- Confirmación de contraseña
-        div
-            label(for="confirmPassword") Confirmar contraseña
-            input(
-                type="password"
-                name="confirmPassword"
-                placeholder="Repite tu contraseña"
-                required
-            )
-
-        //- Botón para registrarse
-        button(type="submit") Crear cuenta
-
-    //- Registro mediante Google
-    div
-        p O regístrate con:
-        a(href="/auth/google") Continuar con Google
-
-    //- Enlace al inicio de sesión
-    p
-        | ¿Ya tienes una cuenta?
-        a(href="/") Inicia sesión aquí
+        //- Enlace al inicio de sesión
+        p
+            | ¿Ya tienes una cuenta?
+            a(href="/login") Inicia sesión aquí

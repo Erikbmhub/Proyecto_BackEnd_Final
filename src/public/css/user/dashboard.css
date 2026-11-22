@@ -1,156 +1,105 @@
-/* =========================================
-   USER DASHBOARD — MOBILE FIRST
-   ========================================= */
-.dashboard-container {
-  width: 100%;
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 1.5rem 1rem 3.5rem;
-  color: var(--text-primary);
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-}
-
-/* Sección de bienvenida */
-.welcome-section {
-  background: linear-gradient(135deg, var(--bg-surface) 0%, var(--bg-elevated) 100%);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-lg);
-  padding: 1.75rem 1.25rem;
-  box-shadow: var(--shadow-card);
-  text-align: center;
-}
-
-.welcome-section h2 {
-  font-size: 1.65rem;
-  font-weight: 800;
-  letter-spacing: -0.02em;
-  color: var(--text-primary);
-  margin-bottom: 0.5rem;
-}
-
-.welcome-section p {
-  font-size: 0.95rem;
-  color: var(--text-secondary);
-  max-width: 600px;
-  margin: 0 auto;
-}
-
-/* Opciones / Accesos principales */
-.dashboard-options {
-  display: flex;
-  flex-direction: column;
-  gap: 1.15rem;
-}
-
-.dashboard-options h3 {
-  font-size: 1.2rem;
-  font-weight: 600;
-  color: var(--text-primary);
-  padding-bottom: 0.35rem;
-  border-bottom: 1px solid var(--border-subtle);
-}
-
-/* Tarjetas del dashboard en móvil (1 columna) */
-.dashboard-cards {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1rem;
-}
-
-.dashboard-card {
+section > div:first-child {
   background-color: var(--bg-surface);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-lg);
-  padding: 1.25rem;
+  padding: var(--space-6);
+  margin-bottom: var(--space-8);
+  box-shadow: var(--shadow-sm);
+}
+
+section > div:first-child h2 {
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+  margin-bottom: var(--space-2);
+}
+
+section > div:first-child p {
+  font-size: var(--text-base);
+  color: var(--text-secondary);
+}
+
+section > section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+section > section > h3 {
+  font-size: var(--text-xl);
+  font-weight: 700;
+  color: var(--accent-primary);
+  letter-spacing: -0.01em;
+}
+
+section > section > div {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-6);
+}
+
+section > section > div > article {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: 1rem;
-  box-shadow: var(--shadow-card);
-  transition: transform var(--transition-fast), border-color var(--transition-fast), background-color var(--transition-fast);
+  gap: var(--space-4);
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition-base), border-color var(--transition-base), box-shadow var(--transition-base);
 }
 
-.dashboard-card:hover {
+section > section > div > article:hover {
   transform: translateY(-3px);
-  border-color: rgba(229, 9, 20, 0.4);
-  background-color: var(--bg-elevated);
+  border-color: rgba(56, 189, 248, 0.45);
+  box-shadow: var(--shadow-md);
 }
 
-.dashboard-card h4 {
-  font-size: 1.15rem;
+section > section > div > article h4 {
+  font-size: var(--text-lg);
   font-weight: 700;
   color: var(--text-primary);
 }
 
-.dashboard-card p {
-  font-size: 0.9rem;
+section > section > div > article p {
+  font-size: var(--text-sm);
   color: var(--text-secondary);
-  line-height: 1.4;
-  margin-top: -0.5rem;
+  flex: 1;
 }
 
-/* Botón / Enlace dentro de la tarjeta */
-.dashboard-card a {
+section > section > div > article a {
+  align-self: flex-start;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 100%;
-  padding: 0.75rem 1rem;
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: #ffffff;
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-md);
   background-color: var(--accent-primary);
-  border-radius: var(--radius-sm);
-  transition: background-color var(--transition-fast), transform var(--transition-fast);
+  color: var(--bg-primary);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  transition: background-color var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
 }
 
-.dashboard-card a:hover {
+section > section > div > article a:hover {
   background-color: var(--accent-primary-hover);
+  color: var(--bg-primary);
+  box-shadow: var(--shadow-glow);
+  transform: translateY(-1px);
 }
 
-.dashboard-card a:active {
-  transform: scale(0.99);
-}
-
-/* =========================================
-   TABLET / ESCRITORIO (>= 640px)
-   ========================================= */
 @media (min-width: 640px) {
-  .dashboard-container {
-    padding: 2rem 1.5rem 4rem;
-  }
-
-  .welcome-section {
-    padding: 2.5rem 2rem;
-    text-align: left;
-  }
-
-  .welcome-section h2 {
-    font-size: 2rem;
-  }
-
-  .welcome-section p {
-    margin: 0;
-  }
-
-  .dashboard-cards {
+  section > section > div {
     grid-template-columns: repeat(2, 1fr);
-    gap: 1.25rem;
-  }
-
-  .dashboard-card a {
-    width: fit-content;
-    padding: 0.65rem 1.25rem;
   }
 }
 
-/* =========================================
-   ESCRITORIO AMPLIO (>= 1024px)
-   ========================================= */
 @media (min-width: 1024px) {
-  .dashboard-cards {
-    gap: 1.5rem;
+  section > div:first-child,
+  section > section > div > article {
+    padding: var(--space-8);
   }
 }

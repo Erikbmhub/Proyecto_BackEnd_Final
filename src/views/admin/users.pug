@@ -4,7 +4,9 @@ block styles
 
 block content
     section.admin-users-container
-        h2 Gestión de usuarios
+        div.admin-users-header
+            h2 Gestión de usuarios
+            a(href="/movies") Volver a gestión de películas
 
         //- Formulario para crear un usuario
         section.create-user
@@ -35,6 +37,15 @@ block content
                         type="password"
                         name="password"
                         placeholder="Contraseña"
+                        required
+                    )
+                //- Confirmación de contraseña
+                div.form-group
+                    label(for="confirmPassword") Confirmar contraseña
+                    input(
+                        type="password"
+                        name="confirmPassword"
+                        placeholder="Repite tu contraseña"
                         required
                     )
 
