@@ -1,0 +1,190 @@
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+header {
+  position: relative;
+  z-index: var(--z-header);
+  background-color: rgba(19, 26, 42, 0.88);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border-subtle);
+  padding: var(--space-4) var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  box-shadow: var(--shadow-sm);
+}
+
+.brand-title {
+  font-size: var(--text-xl);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+}
+
+/* Botones de acceso en el nav cuando no hay sesión */
+.auth-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.nav-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  transition: background-color var(--transition-fast), color var(--transition-fast), border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.nav-btn--login {
+  background-color: var(--accent-primary);
+  color: var(--bg-primary);
+}
+
+.nav-btn--login:hover {
+  background-color: var(--accent-primary-hover);
+  box-shadow: var(--shadow-glow);
+}
+
+.nav-btn--signup {
+  background-color: var(--bg-elevated);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-primary);
+}
+
+.nav-btn--signup:hover {
+  border-color: var(--accent-primary);
+  color: var(--accent-primary);
+}
+
+.nav-btn--google {
+  border: 1px solid rgba(251, 113, 133, 0.35);
+  background-color: rgba(251, 113, 133, 0.12);
+  color: var(--accent-secondary);
+}
+
+.nav-btn--google:hover {
+  background-color: var(--accent-secondary);
+  color: var(--bg-primary);
+}
+
+/* Menú desplegable autenticado (<details>) */
+header details {
+  position: relative;
+  align-self: flex-start;
+}
+
+header summary {
+  list-style: none;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-md);
+  background-color: var(--bg-elevated);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-primary);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color var(--transition-fast), background-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+header summary::-webkit-details-marker {
+  display: none;
+}
+
+header summary:hover {
+  border-color: var(--accent-primary);
+  box-shadow: var(--shadow-glow);
+}
+
+header details[open] summary {
+  border-color: var(--accent-primary);
+  background-color: rgba(56, 189, 248, 0.12);
+  color: var(--accent-primary);
+}
+
+header details nav {
+  margin-top: var(--space-2);
+  min-width: 210px;
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: var(--space-2);
+  box-shadow: var(--shadow-md);
+}
+
+header details nav ul {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+header details nav a {
+  display: block;
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-sm);
+  color: var(--text-primary);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  transition: background-color var(--transition-fast), color var(--transition-fast);
+}
+
+header details nav a:hover {
+  background-color: rgba(56, 189, 248, 0.14);
+  color: var(--accent-primary);
+}
+
+/* Destacado del enlace "Salir" (último elemento del menú) */
+header details nav li:last-child a {
+  color: var(--accent-secondary);
+}
+
+header details nav li:last-child a:hover {
+  background-color: rgba(251, 113, 133, 0.16);
+  color: var(--accent-secondary-hover);
+}
+
+/* Contenido principal */
+main {
+  position: relative;
+  z-index: var(--z-content);
+  flex: 1;
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: var(--space-6);
+}
+
+/* Pie de página */
+footer {
+  position: relative;
+  z-index: var(--z-content);
+  background-color: var(--bg-surface);
+  border-top: 1px solid var(--border-subtle);
+  padding: var(--space-4) var(--space-6);
+  text-align: center;
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+}
+
+@media (min-width: 768px) {
+  header {
+    padding: var(--space-4) var(--space-8);
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  main {
+    padding: var(--space-8);
+  }
+}

@@ -1,0 +1,44 @@
+extends ../layouts/main
+
+block styles
+    link(rel="stylesheet" href="/css/user/detail.css")
+
+block content
+    section
+        //- Título de la película
+        h2= movie.title
+
+        //- Información principal
+        div
+            //- Cartel de la película
+            div
+                img(
+                    src=movie.image ? `https://image.tmdb.org/t/p/w500${movie.image}` : "/images/no-poster.png"
+                    alt="Portada de " + movie.title
+                )
+
+            //- Información de la película
+            div
+                h4= movie.title
+                p Año: #{movie.year}
+                p Director: #{movie.director}
+                p Género: #{movie.genre}
+                p Duración: #{movie.duration} min
+                p Sinopsis: #{movie.description}
+                p Reparto: #{movie.actors}
+                p Valoración: #{movie.imdbRating}
+
+        //- Acciones de la película
+        div
+            button(
+                class=isFavorite ? "favorite-toggle is-favorite" : "favorite-toggle"
+                type="button"
+                data-tmdb-id=movie.tmdbId
+                data-title=movie.title
+                data-image=movie.image
+                data-year=movie.year
+                data-description=movie.description
+                data-rating=movie.imdbRating
+            )= isFavorite ? "Eliminar de favoritos" : "Añadir a favoritos"
+
+            a(href="/search") Buscar más películas

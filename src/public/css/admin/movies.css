@@ -1,0 +1,180 @@
+section > h2 {
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  margin-bottom: var(--space-6);
+  letter-spacing: -0.02em;
+}
+
+section > section {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  margin-bottom: var(--space-8);
+  box-shadow: var(--shadow-sm);
+}
+
+section > section > h3 {
+  font-size: var(--text-xl);
+  margin-bottom: var(--space-4);
+  color: var(--accent-primary);
+}
+
+/* Formulario de creación */
+form[action="/api/movie"] {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-4);
+}
+
+form[action="/api/movie"] > div {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+form[action="/api/movie"] label {
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+form[action="/api/movie"] input {
+  width: 100%;
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-subtle);
+  background-color: var(--bg-elevated);
+  color: var(--text-primary);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+form[action="/api/movie"] input:focus {
+  outline: none;
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.18);
+}
+
+form[action="/api/movie"] button[type="submit"] {
+  justify-self: start;
+  padding: var(--space-3) var(--space-6);
+  border: none;
+  border-radius: var(--radius-md);
+  background-color: var(--accent-primary);
+  color: var(--bg-primary);
+  font-weight: 600;
+  transition: background-color var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+form[action="/api/movie"] button[type="submit"]:hover {
+  background-color: var(--accent-primary-hover);
+  box-shadow: var(--shadow-glow);
+  transform: translateY(-1px);
+}
+
+/* Listado de películas registradas */
+section > section > h3 + div {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-6);
+}
+
+section > section > h3 + div > article {
+  display: grid;
+  grid-template-columns: 1fr;
+  background-color: var(--bg-elevated);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  transition: transform var(--transition-base), border-color var(--transition-base), box-shadow var(--transition-base);
+}
+
+section > section > h3 + div > article:hover {
+  transform: translateY(-3px);
+  border-color: rgba(56, 189, 248, 0.45);
+  box-shadow: var(--shadow-md);
+}
+
+.movie-image {
+  width: 100%;
+  aspect-ratio: 2 / 3;
+  object-fit: cover;
+}
+
+section > section > h3 + div > article > div {
+  padding: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.movie-title {
+  font-size: var(--text-lg);
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.movie-year,
+.movie-director,
+.movie-genre,
+.movie-duration {
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+}
+
+.btn-edit-movie,
+.btn-delete-movie {
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-sm);
+  border: 1px solid transparent;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  transition: background-color var(--transition-fast), color var(--transition-fast), border-color var(--transition-fast);
+}
+
+.btn-edit-movie {
+  margin-top: var(--space-2);
+  background-color: rgba(56, 189, 248, 0.14);
+  color: var(--accent-primary);
+  border-color: rgba(56, 189, 248, 0.35);
+}
+
+.btn-edit-movie:hover {
+  background-color: var(--accent-primary);
+  color: var(--bg-primary);
+}
+
+.btn-delete-movie {
+  background-color: rgba(251, 113, 133, 0.14);
+  color: var(--accent-secondary);
+  border-color: rgba(251, 113, 133, 0.35);
+}
+
+.btn-delete-movie:hover {
+  background-color: var(--accent-secondary);
+  color: var(--bg-primary);
+}
+
+@media (min-width: 640px) {
+  form[action="/api/movie"] {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  form[action="/api/movie"] button[type="submit"] {
+    grid-column: 1 / -1;
+  }
+
+  section > section > h3 + div {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  form[action="/api/movie"] {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  section > section > h3 + div {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}

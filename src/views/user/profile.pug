@@ -1,0 +1,37 @@
+block styles
+    link(rel="stylesheet" href="/css/user/profile.css")
+
+section
+    //- Título de la página
+    h2 Mi perfil
+
+    //- Comprobamos que existe un usuario
+    if user
+        form(action="/api/users/profile" method="PUT")
+            //- Nombre del usuario
+            div
+                label(for="name") Nombre
+                input(
+                    type="text"
+                    name="name"
+                    value=user.name
+                    required
+                )
+
+            //- Correo electrónico
+            div
+                label(for="email") Correo electrónico
+                input(
+                    type="email"
+                    name="email"
+                    value=user.email
+                    required
+                )
+
+            //- Botón para guardar los cambios
+            button(type="submit") Guardar cambios
+    else
+        p No se ha podido cargar la información del usuario.
+
+    //- Volver al panel de control
+    a(href="/dashboard") Volver al panel de control

@@ -16,3 +16,7 @@ Thumbs.db
 
 # Cobertura de tests
 coverage/
+
+.env
+NOTAS.txt
+.vercel

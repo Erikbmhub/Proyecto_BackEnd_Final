@@ -1,0 +1,153 @@
+extends ../layouts/main
+
+block styles
+    if user && user.role === "user"
+        link(rel="stylesheet" href="/css/user/favorites.css")
+    else
+        link(rel="stylesheet" href="/css/admin/movies.css")
+
+block content
+    section
+        if user && user.role === "admin"
+            //- Vista de gestión para el administrador
+            h2 Gestión de películas
+
+            section
+                h3 Crear nueva película
+
+                form(action="/api/movie" method="POST")
+                    div
+                        label(for="title") Título completo
+                        input#title(
+                            type="text"
+                            name="title"
+                            required
+                        )
+
+                    div
+                        label(for="tmdbId") Identificador TMDb
+                        input#tmdbId(
+                            type="number"
+                            name="tmdbId"
+                            required
+                        )
+
+                    div
+                        label(for="image") Imagen representativa
+                        input#image(
+                            type="url"
+                            name="image"
+                            required
+                        )
+
+                    div
+                        label(for="year") Año
+                        input#year(
+                            type="number"
+                            name="year"
+                            required
+                        )
+
+                    div
+                        label(for="director") Director
+                        input#director(
+                            type="text"
+                            name="director"
+                            required
+                        )
+
+                    div
+                        label(for="genre") Género
+                        input#genre(
+                            type="text"
+                            name="genre"
+                            required
+                        )
+
+                    div
+                        label(for="duration") Duración
+                        input#duration(
+                            type="text"
+                            name="duration"
+                            required
+                        )
+
+                    button(type="submit") Crear película
+
+            section
+                h3 Películas registradas
+
+                if movies && movies.length
+                    div
+                        each movie in movies
+                            article(
+                                data-movie-id=movie._id
+                                data-title=movie.title
+                                data-tmdb-id=movie.tmdbId
+                                data-image=movie.image
+                                data-year=movie.year
+                                data-director=movie.director
+                                data-genre=movie.genre
+                                data-duration=movie.duration
+                            )
+                                img.movie-image(
+                                    src=movie.image || "/img/image_not_found.jpg"
+                                    onerror="this.onerror=null; this.src='/img/image_not_found.jpg'"
+                                    alt="Cartel de " + movie.title
+                                )
+                                div
+                                    h4.movie-title= movie.title
+                                    p.movie-year Año: #{movie.year}
+                                    p.movie-director Director: #{movie.director}
+                                    p.movie-genre Género: #{movie.genre}
+                                    p.movie-duration Duración: #{movie.duration}
+
+                                    button(
+                                        type="button"
+                                        class="btn-edit-movie"
+                                        data-movie-id=movie._id
+                                    ) Editar
+
+                                    button(
+                                        type="button"
+                                        class="btn-delete-movie"
+                                        data-movie-id=movie._id
+                                    ) Eliminar
+                else
+                    p Todavía no hay películas registradas.
+
+        else if user && user.role === "user"
+            section.favorites-container
+                h2 Mis películas favoritas
+
+                if movies && movies.length
+                    each movie in movies
+                        article.favorite-item(data-tmdb-id=movie.tmdbId)
+                            img(
+                                src=movie.image || "/img/image_not_found.jpg"
+                                onerror="this.onerror=null; this.src='/img/image_not_found.jpg'"
+                                alt="Cartel de " + movie.title
+                            )
+
+                            div
+                                h3= movie.title
+                                if movie.year
+                                    p Año: #{movie.year}
+                                if movie.imdbRating != null
+                                    p Valoración: #{movie.imdbRating}
+                                if movie.description
+                                    p= movie.description
+
+                                a(href="/search/" + encodeURIComponent(movie.title)) Más detalles
+                                button.remove-favorite(type="button" data-tmdb-id=movie.tmdbId) Eliminar de favoritos
+                else
+                    p Aún no tienes películas favoritas.
+
+                a(href="/search") Buscar películas
+
+        else
+            //- Usuario no autenticado o rol no reconocido
+            p No tienes permiso para ver esta página.
+
+block scripts
+    script(src="/js/main.js")

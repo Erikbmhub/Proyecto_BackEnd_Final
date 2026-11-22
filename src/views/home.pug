@@ -1,0 +1,19 @@
+extends layouts/main
+
+block styles
+    link(rel="stylesheet" href="/css/home.css")
+
+block content
+    section.home-showcase
+        div.home-hero
+            h2 Últimas películas en taquilla
+            p Inicia sesión o regístrate para buscar títulos, ver detalles y guardar tus favoritos.
+
+        if featuredMovies && featuredMovies.length
+            div.poster-grid
+                each movie in featuredMovies
+                    if movie.image
+                        figure.poster-card
+                            img(src=movie.image alt=movie.title loading="lazy")
+        else
+            p.home-empty No se pudieron cargar las películas de taquilla en este momento.

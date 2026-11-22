@@ -1,0 +1,65 @@
+extends ../layouts/main
+
+block styles
+    link(rel="stylesheet" href="/css/user/search.css")
+
+block content
+    section
+        //- Título de la página
+        h2 Buscar películas
+        p Encuentra películas por su título.
+
+        //- Formulario de búsqueda
+        form(action="/api/movie/search" method="GET")
+            div
+                label(for="title") Título de la película
+                input(
+                    type="text"
+                    name="title"
+                    placeholder="Ejemplo: Inception"
+                    required
+                )
+
+            button(type="submit") Buscar
+
+        //- Zona de resultados
+        section
+            h3 Resultados de búsqueda
+
+            //- Comprobamos si existen películas
+            if movies && movies.length
+                div
+                    each movie in movies
+                        article
+                            //- Cartel de la película
+                            img(
+                                src=movie.image || "/img/image_not_found.jpg"
+                                onerror="this.onerror=null; this.src='/img/image_not_found.jpg'"
+                                alt="Portada de " + movie.title
+                            )
+
+                            //- Información de la película
+                            div
+                                h4= movie.title
+                                p Año: #{movie.year}
+                                p Director: #{movie.director}
+                                p Género: #{movie.genre}
+                                p Duración: #{movie.duration} min
+
+                                //- Enlace a los detalles (vista "details.pug")
+                                a(href="/search/" + encodeURIComponent(movie.title)) Más detalles
+
+                                //- Botón para añadir a favoritos
+                                - const isFavorite = favoriteIds && favoriteIds.includes(String(movie.tmdbId || movie.id))
+                                button(
+                                    class=isFavorite ? "favorite-toggle is-favorite" : "favorite-toggle"
+                                    type="button"
+                                    data-tmdb-id=movie.tmdbId || movie.id
+                                    data-title=movie.title
+                                    data-image=movie.image
+                                    data-year=movie.year
+                                    data-description=movie.description
+                                    data-rating=movie.imdbRating
+                                )= isFavorite ? "Eliminar de favoritos" : "Añadir a favoritos"
+            else
+                p No hay resultados para mostrar.

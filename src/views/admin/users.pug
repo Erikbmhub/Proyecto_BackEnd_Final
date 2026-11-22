@@ -1,0 +1,81 @@
+extends ../layouts/main
+
+block styles
+    link(rel="stylesheet" href="/css/admin/users.css")
+
+block content
+    section.admin-users-container
+        div.admin-users-header
+            h2 Gestión de usuarios
+            a(href="/movies") Volver a gestión de películas
+
+        //- Formulario para crear un usuario
+        section.create-user
+            h3 Crear nuevo usuario
+
+            form#user-form(action="/api/auth/signup" method="POST")
+                div.form-group
+                    label(for="name") Nombre
+                    input#name(
+                        type="text"
+                        name="username"
+                        placeholder="Nombre del usuario"
+                        required
+                    )
+
+                div.form-group
+                    label(for="email") Correo electrónico
+                    input#email(
+                        type="email"
+                        name="email"
+                        placeholder="Correo electrónico"
+                        required
+                    )
+
+                div.form-group
+                    label(for="password") Contraseña
+                    input#password(
+                        type="password"
+                        name="password"
+                        placeholder="Contraseña"
+                        required
+                    )
+                //- Confirmación de contraseña
+                div.form-group
+                    label(for="confirmPassword") Confirmar contraseña
+                    input(
+                        type="password"
+                        name="confirmPassword"
+                        placeholder="Repite tu contraseña"
+                        required
+                    )
+
+                button(type="submit") Crear usuario
+
+        //- Listado de usuarios registrados
+        section.user-management
+            h3 Usuarios registrados
+
+            if users && users.length
+                div.user-list
+                    each u in users
+                        article.user-card
+                            div.user-info
+                                h4= u.name
+                                p Correo: #{u.email}
+                                p Rol: #{u.role}
+
+                                //- Acciones de administración
+                                button(
+                                    type="button"
+                                    class="edit-user"
+                                    data-user-id=u.id
+                                ) Editar
+
+                                button(
+                                    type="button"
+                                    class="delete-user"
+                                    data-user-id=u.id
+                                ) Eliminar
+            else
+                p Todavía no hay usuarios registrados.

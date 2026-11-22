@@ -1,0 +1,43 @@
+extends ../layouts/main
+
+block styles
+    link(rel="stylesheet" href="/css/auth/login.css")
+
+block content
+    section.login-container
+        h2 Iniciar sesión
+
+        //- Formulario de acceso
+        form#login-form(action="/api/auth/login" method="POST")
+            //- Correo electrónico
+            div.form-group
+                label(for="email") Correo electrónico
+                input#email(
+                    type="email"
+                    name="email"
+                    placeholder="Introduce tu correo electrónico"
+                    required
+                )
+
+            //- Contraseña
+            div.form-group
+                label(for="password") Contraseña
+                input#password(
+                    type="password"
+                    name="password"
+                    placeholder="Introduce tu contraseña"
+                    required
+                )
+
+            //- Botón para iniciar sesión
+            button(type="submit") Entrar
+
+        //- Acceso mediante Google
+        div.oauth-container
+            p O inicia sesión con:
+            a(href="/api/auth/google") Continuar con Google
+
+        //- Enlace al registro
+        p
+            | ¿Todavía no tienes cuenta?
+            a(href="/signup") Regístrate aquí
