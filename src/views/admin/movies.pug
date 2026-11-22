@@ -91,7 +91,8 @@ block content
                                 data-duration=movie.duration
                             )
                                 img.movie-image(
-                                    src=movie.image
+                                    src=movie.image || "/img/image_not_found.jpg"
+                                    onerror="this.onerror=null; this.src='/img/image_not_found.jpg'"
                                     alt="Cartel de " + movie.title
                                 )
                                 div
