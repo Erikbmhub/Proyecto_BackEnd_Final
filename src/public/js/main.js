@@ -29,6 +29,11 @@ document.addEventListener("DOMContentLoaded", () => {
       const existingForm = document.querySelector("#edit-movie-form");
 
       if (existingForm) {
+        if (existingForm.dataset.movieId === movie.id) {
+          existingForm.remove();
+          return;
+        }
+
         existingForm.remove();
       }
 
@@ -196,6 +201,11 @@ document.addEventListener("DOMContentLoaded", () => {
       // Comprobamos la respuesta recibida.
       console.log("Respuesta del servidor:", result); // Comprobamos si la eliminación se ha realizado correctamente.
       if (response.ok) {
+        const editForm = document.querySelector("#edit-movie-form");
+        if (editForm?.dataset.movieId === movieId) {
+          editForm.remove();
+        }
+
         // Eliminamos el artículo de la película de la página.
         article.remove();
 

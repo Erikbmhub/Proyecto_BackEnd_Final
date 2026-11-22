@@ -33,7 +33,8 @@ block content
                         article
                             //- Cartel de la película
                             img(
-                                src=movie.image ? `https://image.tmdb.org/t/p/w500${movie.image}` : "/images/no-poster.png"
+                                src=movie.image || "/img/image_not_found.jpg"
+                                onerror="this.onerror=null; this.src='/img/image_not_found.jpg'"
                                 alt="Portada de " + movie.title
                             )
 
