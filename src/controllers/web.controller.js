@@ -1,34 +1,22 @@
 // Importamos el modelo de películas.
 const MovieModel = require("../models/movie.model");
 const Favorite = require("../models/favorite.model");
-const fetchDataFilm = require("../services/tmdb.service");
 
-// http://localhost:3001
-// async function getViewHome(req, res) {
-//   res.render("layouts/main.pug", { User: req.user });
-// }
+//http://localhost:3001
 async function getViewHome(req, res) {
-  try {
-    const featuredMovies = await fetchDataFilm.fetchBoxOfficeMovies(8);
-    res.render("home.pug", { user: req.user, featuredMovies });
-  } catch (error) {
-    console.error("Error al cargar la portada:", error);
-    res.render("home.pug", { user: req.user, featuredMovies: [] });
-  }
+  //vista inicio de la app
+  res.render("layouts/main.pug");
 }
 
-// http://localhost:3001/login
-async function getViewLogin(req, res) {
-  res.render("auth/login.pug", { user: req.user });
-}
-
-// http://localhost:3001/dashboard
+//http://localhost:3001/dashboard
 async function getViewDashboard(req, res) {
-  res.render("user/dashboard.pug", { user: req.user });
+  //panel de control
+  res.render("user/dashboard.pug");
 }
 
-// http://localhost:3001/search
+//http://localhost:3001/search
 async function getViewSearch(req, res) {
+  //buscador de películass
   const movies = req.session.movies || [];
   delete req.session.movies;
   const savedTmdbIds = await Favorite.distinct("tmdbId", { userId: req.user.id });
@@ -37,9 +25,10 @@ async function getViewSearch(req, res) {
   res.render("user/search.pug", { movies, favoriteIds, user: req.user });
 }
 
-// http://localhost:3001/search/:title
+//http://localhost:3001/search/:title
 async function getViewSearchByDetail(req, res) {
   try {
+    console.log(req.params.title)
     const title = req.params.title;
     const movie = await MovieModel.findOne({ title });
 
@@ -55,13 +44,14 @@ async function getViewSearchByDetail(req, res) {
   }
 }
 
-// http://localhost:3001/movies
+//http://localhost:3001/movies
 async function getViewMovies(req, res) {
   try {
     if (!["user", "admin"].includes(req.user.role)) {
       return res.status(403).send("No tienes permiso para ver esta página");
     }
 
+    // Los usuarios ven sus favoritos; el administrador conserva su catálogo de gestión.
     const movies = req.user.role === "user"
       ? await Favorite.find({ userId: req.user.id }).sort({ createdAt: -1 })
       : await MovieModel.find().sort({ createdAt: -1 });
@@ -76,24 +66,26 @@ async function getViewMovies(req, res) {
   }
 }
 
-// http://localhost:3001/profile
+//http://localhost:3001/profile
 async function getViewProfile(req, res) {
-  res.render("user/profile.pug", { user: req.user });
+  //vista detalle del usuario
+  res.render("user/profile.pug");
 }
 
-// http://localhost:3001/users
+//http://localhost:3001/users
 async function getViewUsers(req, res) {
-  res.render("admin/users.pug", { user: req.user });
+  //lista de usuarios
+  res.render("admin/users.pug");
 }
 
-// http://localhost:3001/signup
+//http://localhost:3001/signup
 async function getViewSignUp(req, res) {
-  res.render("auth/signup.pug", { user: req.user });
+  //vista de formulario de registro de la app
+  res.render("auth/signup.pug");
 }
 
-module.exports = {
+module.exports = webControllers = {
   getViewHome,
-  getViewLogin,
   getViewDashboard,
   getViewSearch,
   getViewSearchByDetail,

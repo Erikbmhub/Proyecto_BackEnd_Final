@@ -1,13 +1,12 @@
-extends ../layouts/main
+
 
 block styles
-    link(rel="stylesheet" href="/css/admin/users.css")
+  link(rel="stylesheet” href=“/css/admin/users.css")
+  
 
 block content
     section.admin-users-container
-        div.admin-users-header
-            h2 Gestión de usuarios
-            a(href="/movies") Volver a gestión de películas
+        h2 Gestión de usuarios
 
         //- Formulario para crear un usuario
         section.create-user
@@ -18,7 +17,7 @@ block content
                     label(for="name") Nombre
                     input#name(
                         type="text"
-                        name="username"
+                        name="name"
                         placeholder="Nombre del usuario"
                         required
                     )
@@ -40,15 +39,6 @@ block content
                         placeholder="Contraseña"
                         required
                     )
-                //- Confirmación de contraseña
-                div.form-group
-                    label(for="confirmPassword") Confirmar contraseña
-                    input(
-                        type="password"
-                        name="confirmPassword"
-                        placeholder="Repite tu contraseña"
-                        required
-                    )
 
                 button(type="submit") Crear usuario
 
@@ -58,24 +48,24 @@ block content
 
             if users && users.length
                 div.user-list
-                    each u in users
+                    each user in users
                         article.user-card
                             div.user-info
-                                h4= u.name
-                                p Correo: #{u.email}
-                                p Rol: #{u.role}
+                                h4= user.name
+                                p Correo: #{user.email}
+                                p Rol: #{user.role}
 
                                 //- Acciones de administración
                                 button(
                                     type="button"
                                     class="edit-user"
-                                    data-user-id=u.id
+                                    data-user-id=user.id
                                 ) Editar
 
                                 button(
                                     type="button"
                                     class="delete-user"
-                                    data-user-id=u.id
+                                    data-user-id=user.id
                                 ) Eliminar
             else
                 p Todavía no hay usuarios registrados.
