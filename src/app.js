@@ -10,11 +10,6 @@ require("./auth/googleAuth");
 
 
 
-const authRoutes = require("./routes/auth.routes.js");
-const favoritesRoutes = require("./routes/favorites.routes")
-const moviesRoutes = require("./routes/movies.routes")
-const usersRoutes = require("./routes/users.routes")
-const webRoutes = require("./routes/web.routes")
 
 const app = express()
 
@@ -22,7 +17,6 @@ app.set("view engine", "pug");
 app.set("views", path.join(__dirname, "views"));
 
 //Auth
-app.use(passport.initialize());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
@@ -32,8 +26,14 @@ app.use(passport.session());
 
 app.use(express.static(path.join(__dirname, "public")));
 
+const authRoutes = require("./routes/auth.routes.js");
+const favoritesRoutes = require("./routes/favorites.routes")
+const moviesRoutes = require("./routes/movies.routes")
+const usersRoutes = require("./routes/users.routes")
+const webRoutes = require("./routes/web.routes")
+
 app.use("/api/user", usersRoutes)
-app.use(authRoutes)
+app.use("/api/auth", authRoutes)
 app.use("/api/movie", moviesRoutes)
 app.use("/api/favorites", favoritesRoutes)
 app.use("/", webRoutes)

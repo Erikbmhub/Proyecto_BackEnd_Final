@@ -17,14 +17,14 @@ router.post('/login', login);
 
 //***Rutas de google OAuth ( Iniciar sesion con Google )***
 
-router.get('/auth/google', passport.authenticate('google', { scope: ['email', 'profile'], prompt: 'select_account' }));
+router.get('/google', passport.authenticate('google', { scope: ['email', 'profile'], prompt: 'select_account' }));
 
 // Callback de Google
-router.get("/auth/google/callback",
+router.get("/google/callback",
     passport.authenticate('google', { failureRedirect: '/login' }),
     (req, res) => {
         res.cookie('token', req.user.token, { httpOnly: true });
-        const redirectUrl = req.user.user.role === 'admin' ? '/admin/dashboard' : '/user/dashboard';
+        const redirectUrl = req.user.user.role === 'admin' ? '/admin/movies' : '/user/dashboard';
         res.redirect(redirectUrl);
     }
 );
