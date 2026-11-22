@@ -10,9 +10,6 @@ const passport = require('passport');
 router.get('/signup', (req, res) => res.render('auth/signup'));
 router.post('/signup', register);
 
-//router.get('/', (req, res) => res.redirect('/login'));
-
-router.get('/login', (req, res) => res.render('auth/login'));
 router.post('/login', login);
 
 //***Rutas de google OAuth ( Iniciar sesion con Google )***
@@ -25,6 +22,7 @@ router.get("/google/callback",
     (req, res) => {
         res.cookie('token', req.user.token, { httpOnly: true });
         const redirectUrl = req.user.user.role === 'admin' ? '/admin/movies' : '/user/dashboard';
+        const redirectUrl1 = req.user.user.role === 'admin' ? '/movies' : '/dashboard';
         res.redirect(redirectUrl);
     }
 );
@@ -44,12 +42,12 @@ router.get('/logout', (req, res,next) => {
 
 //Rutas protegidas por Roles
 
-router.get('/user/dashboard', authMiddleware, authorizeRole('user'), (req, res) => {
-    res.render('user/dashboard', { user: req.user });
+router.get('/dashboard', authMiddleware, authorizeRole('user'), (req, res) => {
+    res.render('user/dashboard.pug', { user: req.user });
 });
 
-router.get('/admin/movies', authMiddleware, authorizeRole('admin'), (req, res) => {
-    res.render('admin/movies', { user: req.user });
-});
+/*router.get('/movies', authMiddleware, authorizeRole('admin'), (req, res) => {
+    res.render('admin/movies.pug', { user: req.user });
+});  */
 
 module.exports = router;

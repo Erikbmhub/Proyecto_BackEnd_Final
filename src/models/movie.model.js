@@ -1,6 +1,7 @@
 
 const mongoose = require("mongoose");
 
+
 // Definimos la estructura de las películas.
 const movieSchema = new mongoose.Schema({
 
@@ -11,41 +12,60 @@ const movieSchema = new mongoose.Schema({
         trim: true
     },
 
+    // Identificador único de la película en TMDb.
+    tmdbId: {
+        type: Number,
+        required: true,
+        unique: true
+    },
+
     // Imagen representativa.
     image: {
         type: String,
-        required: true
+        required: false
     },
 
     // Año de estreno.
     year: {
         type: Number,
-        required: true
+        required: false
     },
 
     // Director de la película.
     director: {
         type: String,
-        required: true,
+        required: false,
         trim: true
     },
 
     // Género cinematográfico.
     genre: {
-        type: String,
-        required: true,
+        type: Array,
+        required: false,
         trim: true
     },
 
     // Duración de la película.
     duration: {
         type: String,
-        required: true
-    }
+        required: false
+    },
+    actors: {
+        type: Array,
+        required: false
+    },
+    imdbRating: {
+        type: Number,
+        required: false
+    },
+    description: {
+        type: String,
+        required: false
+    },
 
 }, { timestamps: true });
 
 // Creamos y exportamos el modelo.
-const Movie = mongoose.model("Movie", movieSchema);
+const MovieModel = mongoose.model("Movie", movieSchema); //"Movie" = tabla "movies" en mongo
 
-module.exports = Movie;
+module.exports = MovieModel;

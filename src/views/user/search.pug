@@ -1,9 +1,8 @@
-
 extends ../layouts/main
 
 block styles
-  link(rel="stylesheet” href=“public/css/user/search.css")
-  
+    //- link(rel="stylesheet" href="/css/user/search.css")
+
 block content
     section
         //- Título de la página
@@ -11,7 +10,7 @@ block content
         p Encuentra películas por su título.
 
         //- Formulario de búsqueda
-        form(action="/search" method="GET")
+        form(action="/api/movie/search" method="GET")
             div
                 label(for="title") Título de la película
                 input(
@@ -34,27 +33,33 @@ block content
                         article
                             //- Cartel de la película
                             img(
-                                src=movie.Poster
-                                alt="Portada de " + movie.Title
+                                src=movie.image || "/img/image_not_found.jpg"
+                                onerror="this.onerror=null; this.src='/img/image_not_found.jpg'"
+                                alt="Portada de " + movie.title
                             )
 
                             //- Información de la película
                             div
-                                h4= movie.Title
-                                p Año: #{movie.Year}
-                                p Director: #{movie.Director}
-                                p Género: #{movie.Genre}
-                                p Duración: #{movie.Runtime}
+                                h4= movie.title
+                                p Año: #{movie.year}
+                                p Director: #{movie.director}
+                                p Género: #{movie.genre}
+                                p Duración: #{movie.duration} min
 
                                 //- Enlace a los detalles (vista "details.pug")
-                                a(href="/search/" + encodeURIComponent(movie.Title)) Más detalles
+                                a(href="/search/" + encodeURIComponent(movie.title)) Más detalles
 
                                 //- Botón para añadir a favoritos
+                                - const isFavorite = favoriteIds.includes(String(movie.tmdbId || movie.id))
                                 button(
+                                    class=isFavorite ? "favorite-toggle is-favorite" : "favorite-toggle"
                                     type="button"
-                                    class="add-favorite"
-                                    data-movie-id=movie.id
-                                    data-movie-source=movie.source
-                                ) Añadir a favoritos
+                                    data-tmdb-id=movie.tmdbId || movie.id
+                                    data-title=movie.title
+                                    data-image=movie.image
+                                    data-year=movie.year
+                                    data-description=movie.description
+                                    data-rating=movie.imdbRating
+                                )= isFavorite ? "Eliminar de favoritos" : "Añadir a favoritos"
             else
                 p No hay resultados para mostrar.

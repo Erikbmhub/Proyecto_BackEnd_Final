@@ -1,14 +1,12 @@
-require('dotenv').config();
+require("dotenv").config();
 const path = require("path");
 const express = require("express");
 
 // Todo relacionado con Auth revisar para saber donde meterlo para dejar archivo limpio
-const session = require('express-session');
-const cookieParser = require('cookie-parser');
+const session = require("express-session");
+const cookieParser = require("cookie-parser");
 const passport = require("passport");
-require("./auth/googleAuth"); 
-
-
+require("./auth/googleAuth");
 
 
 const app = express()
@@ -20,9 +18,14 @@ app.set("views", path.join(__dirname, "views"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
-app.use(session({ secret: process.env.JWT_SECRET, resave: false, saveUninitialized: true }));
+app.use(
+  session({
+    secret: process.env.JWT_SECRET,
+    resave: false,
+    saveUninitialized: true,
+  }),
+);
 app.use(passport.initialize());
-app.use(passport.session());
 
 app.use(express.static(path.join(__dirname, "public")));
 

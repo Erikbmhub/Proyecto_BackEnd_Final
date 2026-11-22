@@ -1,8 +1,11 @@
 extends ../layouts/main
 
 block styles
-  link(rel="stylesheet” href=“/css/admin/movies.css")
-  
+    if user && user.role === "user"
+        //- link(rel="stylesheet" href="/css/user/favorites.css")
+    else
+        link(rel="stylesheet" href="/css/admin/movies.css")
+
 block content
     section
         if user && user.role === "admin"
@@ -18,6 +21,14 @@ block content
                         input#title(
                             type="text"
                             name="title"
+                            required
+                        )
+
+                    div
+                        label(for="tmdbId") Identificador TMDb
+                        input#tmdbId(
+                            type="number"
+                            name="tmdbId"
                             required
                         )
 
@@ -69,61 +80,74 @@ block content
                 if movies && movies.length
                     div
                         each movie in movies
-                            article
-                                img(
-                                    src=movie.image
+                            article(
+                                data-movie-id=movie._id
+                                data-title=movie.title
+                                data-tmdb-id=movie.tmdbId
+                                data-image=movie.image
+                                data-year=movie.year
+                                data-director=movie.director
+                                data-genre=movie.genre
+                                data-duration=movie.duration
+                            )
+                                img.movie-image(
+                                    src=movie.image || "/img/image_not_found.jpg"
+                                    onerror="this.onerror=null; this.src='/img/image_not_found.jpg'"
                                     alt="Cartel de " + movie.title
                                 )
-
                                 div
-                                    h4= movie.title
-                                    p Año: #{movie.year}
-                                    p Director: #{movie.director}
-                                    p Género: #{movie.genre}
-                                    p Duración: #{movie.duration}
+                                    h4.movie-title= movie.title
+                                    p.movie-year Año: #{movie.year}
+                                    p.movie-director Director: #{movie.director}
+                                    p.movie-genre Género: #{movie.genre}
+                                    p.movie-duration Duración: #{movie.duration}
 
                                     button(
                                         type="button"
+                                        class="btn-edit-movie"
                                         data-movie-id=movie._id
                                     ) Editar
 
                                     button(
                                         type="button"
+                                        class="btn-delete-movie"
                                         data-movie-id=movie._id
                                     ) Eliminar
                 else
                     p Todavía no hay películas registradas.
 
         else if user && user.role === "user"
-            //- Vista de películas favoritas para el usuario
-            h2 Mis películas favoritas
+            section.favorites-container
+                h2 Mis películas favoritas
 
-            if movies && movies.length
-                div
+                if movies && movies.length
                     each movie in movies
-                        article.movie-car
+                        article.favorite-item(data-tmdb-id=movie.tmdbId)
                             img(
-                                src=movie.Poster
-                                alt="Portada de " + movie.Title
+                                src=movie.image || "/img/image_not_found.jpg"
+                                onerror="this.onerror=null; this.src='/img/image_not_found.jpg'"
+                                alt="Cartel de " + movie.title
                             )
 
                             div
-                                h3= movie.Title
-                                p Año: #{movie.Year}
-                                p Director: #{movie.Director}
-                                p Género: #{movie.Genre}
-                                p Duración: #{movie.Runtime}
+                                h3= movie.title
+                                if movie.year
+                                    p Año: #{movie.year}
+                                if movie.imdbRating != null
+                                    p Valoración: #{movie.imdbRating}
+                                if movie.description
+                                    p= movie.description
 
-                                a(href="/search/" + encodeURIComponent(movie.Title)) Más detalles
+                                a(href="/search/" + encodeURIComponent(movie.title)) Más detalles
+                                button.remove-favorite(type="button" data-tmdb-id=movie.tmdbId) Eliminar de favoritos
+                else
+                    p Aún no tienes películas favoritas.
 
-                                button(
-                                    type="button"
-                                    data-movie-id=movie.id
-                                    data-movie-source=movie.source
-                                ) Eliminar de favoritos
-            else
-                p Todavía no has añadido películas a tus favoritos.
+                a(href="/search") Buscar películas
 
         else
             //- Usuario no autenticado o rol no reconocido
             p No tienes permiso para ver esta página.
+
+block scripts
+    script(src="/js/main.js")

@@ -29,6 +29,8 @@ html(lang="es")
                         nav
                             ul
                                 li
+                                    a(href="/users") Usuarios
+                                li
                                     form(action="/logout" method="POST")
                                         button(type="submit") Salir
 
@@ -95,3 +97,6 @@ html(lang="es")
 
     footer
         p ~ Proyecto Backend ~
+    //- Scripts específicos de cada vista
+    block scripts
+    script(src="/js/favorites.js" defer)

@@ -1,179 +1,129 @@
-/* =========================================
-   MOVIE DETAIL VIEW — MOBILE FIRST
-   ========================================= */
-.movie-detail {
-  width: 100%;
-  max-width: 1100px;
+/* Ficha detallada de película */
+main > section {
+  width: min(100% - 2rem, 1100px);
   margin: 0 auto;
-  padding: 1.5rem 1rem 3.5rem;
+  padding: 2rem 0 4rem;
   color: var(--text-primary);
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
 }
 
-/* Título principal de la película */
-.movie-detail > h2 {
-  font-size: 1.65rem;
-  font-weight: 800;
-  letter-spacing: -0.02em;
+main > section > h2 {
+  margin: 0 0 1.25rem;
+  padding-bottom: .75rem;
   color: var(--text-primary);
-  padding-bottom: 0.5rem;
   border-bottom: 1px solid var(--border-subtle);
+  font-size: clamp(1.7rem, 4vw, 2.5rem);
+  font-weight: 800;
+  letter-spacing: -.025em;
 }
 
-/* Contenedor principal de la ficha (Cartel + Datos) */
-.movie-detail-content {
-  display: flex;
-  flex-direction: column;
+main > section > div:first-of-type {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
   gap: 1.5rem;
-  background-color: var(--bg-surface);
+  padding: 1.25rem;
+  background: var(--bg-surface);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-lg);
-  padding: 1.25rem;
   box-shadow: var(--shadow-card);
 }
 
-/* Cartel de la película */
-.movie-poster {
-  width: 100%;
+main > section > div:first-of-type > div:first-child {
   display: flex;
   justify-content: center;
 }
 
-.movie-poster img {
-  width: 100%;
-  max-width: 320px;
-  height: auto;
+main > section > div:first-of-type img {
+  display: block;
+  width: min(100%, 320px);
   aspect-ratio: 2 / 3;
   object-fit: cover;
-  border-radius: var(--radius-md);
+  background: var(--bg-input);
   border: 1px solid var(--border-subtle);
-  background-color: var(--bg-input);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+  border-radius: var(--radius-md);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, .35);
 }
 
-/* Información de la película */
-.movie-information {
+main > section > div:first-of-type > div:last-child {
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: .65rem;
+  align-self: center;
 }
 
-.movie-information p {
-  font-size: 0.95rem;
+main > section > div:first-of-type h4 {
+  margin: 0 0 .25rem;
+  color: var(--text-primary);
+  font-size: 1.35rem;
+}
+
+main > section > div:first-of-type p {
+  margin: 0;
   color: var(--text-secondary);
-  line-height: 1.5;
+  font-size: .96rem;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
 }
 
-.movie-information p strong {
-  color: var(--text-primary);
-  font-weight: 600;
-}
-
-/* Subtítulos de Sinopsis y Reparto */
-.movie-information h3 {
-  font-size: 1.1rem;
-  font-weight: 700;
-  color: var(--text-primary);
-  margin-top: 0.75rem;
-  margin-bottom: -0.25rem;
-}
-
-/* Acciones de la película (Añadir a favoritos / Volver) */
-.movie-actions {
+main > section > div:last-child {
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
-  padding-top: 0.5rem;
+  gap: .75rem;
+  margin-top: 1rem;
 }
 
-.add-favorite {
-  width: 100%;
-  padding: 0.85rem 1.25rem;
-  font-size: 0.95rem;
-  font-weight: 600;
-  color: #ffffff;
-  background-color: var(--accent-primary);
-  border: none;
-  border-radius: var(--radius-sm);
-  cursor: pointer;
-  transition: background-color var(--transition-fast), transform var(--transition-fast);
-  box-shadow: 0 4px 12px rgba(229, 9, 20, 0.3);
-}
-
-.add-favorite:hover {
-  background-color: var(--accent-primary-hover);
-}
-
-.add-favorite:active {
-  transform: scale(0.99);
-}
-
-.movie-actions a {
+main > section > div:last-child button,
+main > section > div:last-child a {
   display: inline-flex;
+  min-height: 2.9rem;
   align-items: center;
   justify-content: center;
-  width: 100%;
-  padding: 0.75rem 1.25rem;
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: var(--text-primary);
-  background-color: var(--bg-elevated);
-  border: 1px solid var(--border-subtle);
+  padding: .75rem 1.1rem;
   border-radius: var(--radius-sm);
-  transition: background-color var(--transition-fast), border-color var(--transition-fast);
+  font: inherit;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background var(--transition-fast), border-color var(--transition-fast), transform var(--transition-fast);
 }
 
-.movie-actions a:hover {
-  background-color: rgba(255, 255, 255, 0.06);
-  border-color: rgba(255, 255, 255, 0.2);
+main > section > div:last-child button {
+  color: #fff;
+  background: var(--accent-primary);
+  border: 1px solid transparent;
+  box-shadow: 0 4px 12px rgba(229, 9, 20, .2);
 }
 
-/* =========================================
-   TABLET / ESCRITORIO (>= 768px)
-   ========================================= */
-@media (min-width: 768px) {
-  .movie-detail {
-    padding: 2.5rem 2rem 4rem;
-  }
+main > section > div:last-child button:hover { background: var(--accent-primary-hover); }
+main > section > div:last-child button:disabled { opacity: .65; cursor: wait; }
 
-  .movie-detail > h2 {
-    font-size: 2rem;
-  }
+main > section > div:last-child button.is-favorite {
+  color: #fecaca;
+  background: rgba(239, 68, 68, .16);
+  border-color: rgba(239, 68, 68, .45);
+  box-shadow: none;
+}
 
-  .movie-detail-content {
-    flex-direction: row;
-    gap: 2rem;
-    padding: 2rem;
-  }
+main > section > div:last-child button.is-favorite:hover {
+  color: #fff;
+  background: var(--accent-danger);
+  border-color: var(--accent-danger);
+}
 
-  .movie-poster {
-    flex: 0 0 300px;
-    justify-content: flex-start;
-  }
+main > section > div:last-child a {
+  color: var(--text-primary);
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-subtle);
+}
 
-  .movie-poster img {
-    max-width: 100%;
-  }
+main > section > div:last-child a:hover {
+  background: rgba(255, 255, 255, .08);
+  border-color: rgba(255, 255, 255, .24);
+}
 
-  .movie-information {
-    flex: 1;
-  }
-
-  .movie-actions {
-    flex-direction: row;
-    align-items: center;
-    gap: 1rem;
-  }
-
-  .add-favorite {
-    width: auto;
-    min-width: 220px;
-  }
-
-  .movie-actions a {
-    width: auto;
-    min-width: 180px;
-  }
+@media (min-width: 700px) {
+  main > section { width: min(100% - 3rem, 1100px); padding-top: 2.5rem; }
+  main > section > div:first-of-type { grid-template-columns: minmax(230px, 320px) minmax(0, 1fr); gap: 2rem; padding: 2rem; }
+  main > section > div:last-child { flex-direction: row; }
+  main > section > div:last-child button,
+  main > section > div:last-child a { min-width: 190px; }
 }
