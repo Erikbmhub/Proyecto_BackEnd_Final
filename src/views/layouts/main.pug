@@ -1,4 +1,3 @@
-
 doctype html
 html(lang="es")
     head
@@ -14,12 +13,9 @@ html(lang="es")
     body
         //- Cabecera de la aplicación
         header
-            h1 Movie app / Vista de inicio
-            //- La vista principal muestra el acceso; las demás vistas sustituyen este bloque.
+            a.brand-title(href="/") Movie App
 
-            //- Comprobamos si existe un usuario autenticado
             if typeof user !== "undefined" && user
-
                 //- Navegación del administrador
                 if user.role === "admin"
                     details
@@ -29,10 +25,11 @@ html(lang="es")
                         nav
                             ul
                                 li
+                                    a(href="/movies") Películas
+                                li
                                     a(href="/users") Usuarios
                                 li
-                                    form(action="/logout" method="POST")
-                                        button(type="submit") Salir
+                                    a(href="/api/auth/logout") Salir
 
                 //- Navegación del usuario
                 else
@@ -40,7 +37,6 @@ html(lang="es")
                         summary
                             span ☰
                             |  Menú
-
                         nav
                             ul
                                 li
@@ -50,47 +46,14 @@ html(lang="es")
                                 li
                                     a(href="/movies") Mis favoritos
                                 li
-                                    form(action="/api/logout" method="POST")
-                                        button(type="submit") Salir
+                                    a(href="/api/auth/logout") Salir
 
-
-            //- Navegación para visitantes no autenticados
+            //- Navegación para visitantes no autenticados (solo los 3 accesos)
             else
-
-
-                section
-                    h2 Iniciar sesión
-
-                    form(action="/login" method="POST")
-                        div
-                            label(for="email") Correo electrónico
-                            input(
-                                type="email"
-                                name="email"
-                                placeholder="Introduce tu correo electrónico"
-                                autocomplete="email"
-                                required
-                            )
-
-                        div
-                            label(for="password") Contraseña
-                            input(
-                                type="password"
-                                name="password"
-                                placeholder="Introduce tu contraseña"
-                                autocomplete="current-password"
-                                required
-                            )
-
-                        button(type="submit") Iniciar sesión
-
-                    div
-                        p O continúa con tu cuenta de Google:
-                        a(href="/auth/google") Continuar con Google
-
-                    p
-                        | ¿Todavía no tienes cuenta? 
-                        a(href="/signup") Regístrate aquí
+                nav.auth-actions(aria-label="Acceso de usuario")
+                    a.nav-btn.nav-btn--login(href="/login") Iniciar sesión
+                    a.nav-btn.nav-btn--signup(href="/signup") Registrarse
+                    a.nav-btn.nav-btn--google(href="/api/auth/google") Continuar con Google
 
         main
             block content

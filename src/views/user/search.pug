@@ -1,7 +1,7 @@
 extends ../layouts/main
 
 block styles
-    //- link(rel="stylesheet" href="/css/user/search.css")
+    link(rel="stylesheet" href="/css/user/search.css")
 
 block content
     section
@@ -50,7 +50,7 @@ block content
                                 a(href="/search/" + encodeURIComponent(movie.title)) Más detalles
 
                                 //- Botón para añadir a favoritos
-                                - const isFavorite = favoriteIds.includes(String(movie.tmdbId || movie.id))
+                                - const isFavorite = favoriteIds && favoriteIds.includes(String(movie.tmdbId || movie.id))
                                 button(
                                     class=isFavorite ? "favorite-toggle is-favorite" : "favorite-toggle"
                                     type="button"

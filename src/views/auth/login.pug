@@ -1,5 +1,7 @@
-
 extends ../layouts/main
+
+block styles
+    link(rel="stylesheet" href="/css/auth/login.css")
 
 block content
     section.login-container
@@ -33,7 +35,7 @@ block content
         //- Acceso mediante Google
         div.oauth-container
             p O inicia sesión con:
-            a(href="/auth/google") Continuar con Google
+            a(href="/api/auth/google") Continuar con Google
 
         //- Enlace al registro
         p

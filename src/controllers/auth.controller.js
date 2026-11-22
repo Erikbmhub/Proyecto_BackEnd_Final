@@ -13,7 +13,7 @@ async function register(req, res) {
             return res.status(400).send('Las contraseñas no coinciden');
         }
         await createUser(username, email, role, password);
-        res.redirect('/login');
+        res.redirect('/dashboard');
     } catch (error) {
         console.error('Error en el registro:', error.message);
         res.status(500).send('Error en el registro');
@@ -38,7 +38,6 @@ async function login(req, res) {
             );
             res.cookie('token', token, { httpOnly: true });
             if (user.role === "admin") {
-                res.redirect("/admin/movies")
                 res.redirect("/movies")
             } else {
                 res.redirect("/dashboard");

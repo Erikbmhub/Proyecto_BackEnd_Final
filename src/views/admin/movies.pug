@@ -2,7 +2,7 @@ extends ../layouts/main
 
 block styles
     if user && user.role === "user"
-        //- link(rel="stylesheet" href="/css/user/favorites.css")
+        link(rel="stylesheet" href="/css/user/favorites.css")
     else
         link(rel="stylesheet" href="/css/admin/movies.css")
 
