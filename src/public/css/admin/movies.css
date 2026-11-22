@@ -4,182 +4,243 @@
 section > h2 {
   font-size: var(--text-2xl);
   font-weight: 700;
-  margin-bottom: var(--space-6);
   letter-spacing: -0.02em;
+  margin-bottom: 1.25rem;
+  padding-bottom: 0.65rem;
+  border-bottom: 1px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
-section > section {
+.admin-movies-container > h2::before {
+  content: "ADMIN";
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: #0c0f16;
+  background-color: var(--accent-admin);
+  padding: 0.2rem 0.45rem;
+  border-radius: 6px;
+}
+
+/* Bloques: Crear película y Listado */
+.create-movie,
+.movie-management {
   background-color: var(--bg-surface);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-lg);
-  padding: var(--space-6);
-  margin-bottom: var(--space-8);
-  box-shadow: var(--shadow-sm);
+  padding: 1.15rem;
+  box-shadow: var(--shadow-card);
 }
 
-section > section > h3 {
-  font-size: var(--text-xl);
-  margin-bottom: var(--space-4);
-  color: var(--accent-primary);
+.create-movie {
+  margin-bottom: 2rem;
 }
 
-/* Formulario de creación */
-form[action="/api/movie"] {
+.create-movie h3,
+.movie-management h3 {
+  font-size: 1.15rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: var(--text-primary);
+}
+
+/* Formulario en móvil (1 columna) */
+#movie-form {
   display: grid;
   grid-template-columns: 1fr;
-  gap: var(--space-4);
+  gap: 0.95rem;
 }
 
-form[action="/api/movie"] > div {
+.form-group {
   display: flex;
   flex-direction: column;
-  gap: var(--space-2);
+  gap: 0.35rem;
 }
 
-form[action="/api/movie"] label {
-  font-size: var(--text-sm);
-  color: var(--text-secondary);
+.form-group label {
+  font-size: 0.85rem;
   font-weight: 500;
+  color: var(--text-secondary);
 }
 
-form[action="/api/movie"] input {
+.form-group input {
   width: 100%;
-  padding: var(--space-3) var(--space-4);
-  border-radius: var(--radius-md);
-  border: 1px solid var(--border-subtle);
-  background-color: var(--bg-elevated);
+  padding: 0.7rem 0.85rem;
+  font-size: 0.95rem;
   color: var(--text-primary);
+  background-color: var(--bg-input);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  outline: none;
   transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
 }
 
-form[action="/api/movie"] input:focus {
-  outline: none;
-  border-color: var(--accent-primary);
-  box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.18);
+.form-group input::placeholder {
+  color: var(--text-muted);
 }
 
-form[action="/api/movie"] button[type="submit"] {
-  justify-self: start;
-  padding: var(--space-3) var(--space-6);
-  border: none;
-  border-radius: var(--radius-md);
-  background-color: var(--accent-primary);
-  color: var(--bg-primary);
+.form-group input:focus {
+  border-color: var(--accent-admin);
+  box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.16);
+}
+
+/* Botón submit del formulario */
+#movie-form button[type="submit"] {
+  margin-top: 0.35rem;
+  width: 100%;
+  padding: 0.8rem 1.25rem;
+  font-size: 0.95rem;
   font-weight: 600;
-  transition: background-color var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
+  color: #0c0f16;
+  background-color: var(--accent-admin);
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: transform var(--transition-fast), filter var(--transition-fast);
 }
 
-form[action="/api/movie"] button[type="submit"]:hover {
-  background-color: var(--accent-primary-hover);
-  box-shadow: var(--shadow-glow);
-  transform: translateY(-1px);
+#movie-form button[type="submit"]:hover {
+  filter: brightness(1.08);
 }
 
-/* Listado de películas registradas */
-section > section > h3 + div {
+#movie-form button[type="submit"]:active {
+  transform: scale(0.99);
+}
+
+/* Listado de películas */
+.movie-list {
   display: grid;
   grid-template-columns: 1fr;
-  gap: var(--space-6);
+  gap: 1rem;
 }
 
-section > section > h3 + div > article {
-  display: grid;
-  grid-template-columns: 1fr;
+.movie-card {
+  display: flex;
+  flex-direction: column;
   background-color: var(--bg-elevated);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-md);
   overflow: hidden;
-  transition: transform var(--transition-base), border-color var(--transition-base), box-shadow var(--transition-base);
+  transition: transform var(--transition-fast), border-color var(--transition-fast);
 }
 
-section > section > h3 + div > article:hover {
+.movie-card:hover {
   transform: translateY(-3px);
-  border-color: rgba(56, 189, 248, 0.45);
-  box-shadow: var(--shadow-md);
+  border-color: rgba(255, 255, 255, 0.18);
 }
 
-.movie-image {
+.movie-card img {
   width: 100%;
-  aspect-ratio: 2 / 3;
+  height: 240px;
   object-fit: cover;
+  display: block;
+  background-color: var(--bg-input);
 }
 
-section > section > h3 + div > article > div {
-  padding: var(--space-4);
+.movie-info {
+  padding: 0.95rem;
   display: flex;
   flex-direction: column;
-  gap: var(--space-2);
+  gap: 0.35rem;
+  flex: 1;
 }
 
-.movie-title {
-  font-size: var(--text-lg);
+.movie-info h4 {
+  font-size: 1.05rem;
   font-weight: 700;
   color: var(--text-primary);
+  margin-bottom: 0.25rem;
+  line-height: 1.3;
 }
 
-.movie-year,
-.movie-director,
-.movie-genre,
-.movie-duration {
-  font-size: var(--text-sm);
+.movie-info p {
+  font-size: 0.85rem;
   color: var(--text-secondary);
+  margin: 0;
+  line-height: 1.4;
 }
 
-.btn-edit-movie,
-.btn-delete-movie {
-  padding: var(--space-2) var(--space-3);
-  border-radius: var(--radius-sm);
-  border: 1px solid transparent;
-  font-size: var(--text-sm);
+/* Botones de acción en cada tarjeta */
+.movie-info button {
+  margin-top: 0.5rem;
+  padding: 0.55rem 0.8rem;
+  font-size: 0.85rem;
   font-weight: 600;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
   transition: background-color var(--transition-fast), color var(--transition-fast), border-color var(--transition-fast);
 }
 
-.btn-edit-movie {
-  margin-top: var(--space-2);
-  background-color: rgba(56, 189, 248, 0.14);
-  color: var(--accent-primary);
-  border-color: rgba(56, 189, 248, 0.35);
+.edit-movie {
+  background-color: transparent;
+  color: var(--text-primary);
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-.btn-edit-movie:hover {
-  background-color: var(--accent-primary);
-  color: var(--bg-primary);
+.edit-movie:hover {
+  background-color: rgba(255, 255, 255, 0.08);
+  border-color: var(--accent-admin);
+  color: var(--accent-admin);
 }
 
-.btn-delete-movie {
-  background-color: rgba(251, 113, 133, 0.14);
-  color: var(--accent-secondary);
-  border-color: rgba(251, 113, 133, 0.35);
+.delete-movie {
+  background-color: rgba(239, 68, 68, 0.12);
+  color: #fca5a5;
+  border: 1px solid rgba(239, 68, 68, 0.35);
 }
 
-.btn-delete-movie:hover {
-  background-color: var(--accent-secondary);
-  color: var(--bg-primary);
+.delete-movie:hover {
+  background-color: var(--accent-danger);
+  color: #ffffff;
+  border-color: var(--accent-danger);
 }
 
 
 
 @media (min-width: 640px) {
-  form[action="/api/movie"] {
-    grid-template-columns: repeat(2, 1fr);
+  .admin-movies-container {
+    padding: 1.75rem 1.5rem 3.5rem;
   }
 
-  form[action="/api/movie"] button[type="submit"] {
+  .create-movie,
+  .movie-management {
+    padding: 1.5rem;
+  }
+
+  #movie-form {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem 1.25rem;
+  }
+
+  #movie-form .form-group:nth-child(1),
+  #movie-form .form-group:nth-child(2),
+  #movie-form button[type="submit"] {
     grid-column: 1 / -1;
   }
 
-  section > section > h3 + div {
+  #movie-form button[type="submit"] {
+    width: fit-content;
+    min-width: 200px;
+    justify-self: start;
+  }
+
+  .movie-list {
     grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
   }
 }
 
+/* =========================================
+   ESCRITORIO AMPLIO (>= 1024px)
+   ========================================= */
 @media (min-width: 1024px) {
-  form[action="/api/movie"] {
-    grid-template-columns: repeat(3, 1fr);
+  .admin-movies-container > h2 {
+    font-size: 1.75rem;
   }
 
-  section > section > h3 + div {
+  #movie-form {
     grid-template-columns: repeat(3, 1fr);
   }
 }

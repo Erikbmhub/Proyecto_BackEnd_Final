@@ -1,27 +1,23 @@
-extends ../layouts/main
-
 block styles
-    link(rel="stylesheet" href="/css/user/dashboard.css")
+  link(rel="stylesheet” href=“/css/user/dashboard.css")
+section
+    div
+        h2 Panel de control
+        p Descubre películas, consulta sus detalles y guarda tus favoritas.
 
-block content
+    //- Accesos principales del usuario
     section
+        h3 ¿Qué quieres hacer?
+
         div
-            h2 Panel de control
-            p Descubre películas, consulta sus detalles y guarda tus favoritas.
+            //- Acceso al buscador de películas
+            article
+                h4 Buscar películas
+                p Encuentra películas por su título.
+                a(href="/search") Buscar películas
 
-        //- Accesos principales del usuario
-        section
-            h3 ¿Qué quieres hacer?
-
-            div
-                //- Acceso al buscador de películas
-                article
-                    h4 Buscar películas
-                    p Encuentra películas por su título.
-                    a(href="/search") Buscar películas
-
-                //- Acceso a las películas favoritas
-                article
-                    h4 Mis películas
-                    p Consulta las películas que has guardado como favoritas.
-                    a(href="/movies") Ver mis películas favoritas
+            //- Acceso a las películas favoritas
+            article
+                h4 Mis películas
+                p Consulta las películas que has guardado como favoritas.
+                a(href="/movies") Ver mis películas favoritas

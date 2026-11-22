@@ -1,125 +1,129 @@
-section > h2 {
-  font-size: var(--text-2xl);
-  font-weight: 700;
-  letter-spacing: -0.02em;
+/* Ficha detallada de película */
+main > section {
+  width: min(100% - 2rem, 1100px);
+  margin: 0 auto;
+  padding: 2rem 0 4rem;
   color: var(--text-primary);
-  margin-bottom: var(--space-6);
 }
 
-/* Contenedor principal: póster + ficha técnica */
-section > div:first-of-type {
-  background-color: var(--bg-surface);
+main > section > h2 {
+  margin: 0 0 1.25rem;
+  padding-bottom: .75rem;
+  color: var(--text-primary);
+  border-bottom: 1px solid var(--border-subtle);
+  font-size: clamp(1.7rem, 4vw, 2.5rem);
+  font-weight: 800;
+  letter-spacing: -.025em;
+}
+
+main > section > div:first-of-type {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1.5rem;
+  padding: 1.25rem;
+  background: var(--bg-surface);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-lg);
-  padding: var(--space-6);
-  box-shadow: var(--shadow-sm);
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--space-6);
-  margin-bottom: var(--space-6);
+  box-shadow: var(--shadow-card);
 }
 
-/* Cartel */
-section > div:first-of-type > div:first-child img {
-  width: 100%;
-  max-width: 340px;
-  margin: 0 auto;
+main > section > div:first-of-type > div:first-child {
+  display: flex;
+  justify-content: center;
+}
+
+main > section > div:first-of-type img {
+  display: block;
+  width: min(100%, 320px);
   aspect-ratio: 2 / 3;
   object-fit: cover;
-  border-radius: var(--radius-md);
+  background: var(--bg-input);
   border: 1px solid var(--border-subtle);
-  box-shadow: var(--shadow-md);
+  border-radius: var(--radius-md);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, .35);
 }
 
-/* Datos de la película */
-section > div:first-of-type > div:last-child {
+main > section > div:first-of-type > div:last-child {
   display: flex;
   flex-direction: column;
-  gap: var(--space-3);
+  gap: .65rem;
+  align-self: center;
 }
 
-section > div:first-of-type > div:last-child h4 {
-  font-size: var(--text-xl);
-  font-weight: 700;
-  color: var(--accent-primary);
-  margin-bottom: var(--space-1);
+main > section > div:first-of-type h4 {
+  margin: 0 0 .25rem;
+  color: var(--text-primary);
+  font-size: 1.35rem;
 }
 
-section > div:first-of-type > div:last-child p {
-  font-size: var(--text-sm);
+main > section > div:first-of-type p {
+  margin: 0;
   color: var(--text-secondary);
+  font-size: .96rem;
   line-height: 1.6;
+  overflow-wrap: anywhere;
 }
 
-/* Acciones (favoritos + volver al buscador) */
-section > div:last-of-type {
+main > section > div:last-child {
   display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: var(--space-4);
+  flex-direction: column;
+  gap: .75rem;
+  margin-top: 1rem;
 }
 
-.favorite-toggle {
-  padding: var(--space-3) var(--space-5);
-  border-radius: var(--radius-md);
-  border: 1px solid rgba(56, 189, 248, 0.35);
-  background-color: var(--accent-primary);
-  color: var(--bg-primary);
-  font-size: var(--text-sm);
-  font-weight: 700;
-  transition: background-color var(--transition-fast), color var(--transition-fast), border-color var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
-}
-
-.favorite-toggle:hover {
-  background-color: var(--accent-primary-hover);
-  box-shadow: var(--shadow-glow);
-  transform: translateY(-1px);
-}
-
-/* Estado cuando ya está en favoritos */
-.favorite-toggle.is-favorite {
-  background-color: rgba(251, 113, 133, 0.14);
-  color: var(--accent-secondary);
-  border-color: rgba(251, 113, 133, 0.4);
-}
-
-.favorite-toggle.is-favorite:hover {
-  background-color: var(--accent-secondary);
-  color: var(--bg-primary);
-  border-color: var(--accent-secondary);
-}
-
-section > div:last-of-type a {
+main > section > div:last-child button,
+main > section > div:last-child a {
   display: inline-flex;
+  min-height: 2.9rem;
   align-items: center;
   justify-content: center;
-  padding: var(--space-3) var(--space-5);
-  border-radius: var(--radius-md);
-  border: 1px solid var(--border-subtle);
-  background-color: var(--bg-surface);
+  padding: .75rem 1.1rem;
+  border-radius: var(--radius-sm);
+  font: inherit;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background var(--transition-fast), border-color var(--transition-fast), transform var(--transition-fast);
+}
+
+main > section > div:last-child button {
+  color: #fff;
+  background: var(--accent-primary);
+  border: 1px solid transparent;
+  box-shadow: 0 4px 12px rgba(229, 9, 20, .2);
+}
+
+main > section > div:last-child button:hover { background: var(--accent-primary-hover); }
+main > section > div:last-child button:disabled { opacity: .65; cursor: wait; }
+
+main > section > div:last-child button.is-favorite {
+  color: #fecaca;
+  background: rgba(239, 68, 68, .16);
+  border-color: rgba(239, 68, 68, .45);
+  box-shadow: none;
+}
+
+main > section > div:last-child button.is-favorite:hover {
+  color: #fff;
+  background: var(--accent-danger);
+  border-color: var(--accent-danger);
+}
+
+main > section > div:last-child a {
   color: var(--text-primary);
-  font-size: var(--text-sm);
-  font-weight: 600;
-  transition: border-color var(--transition-fast), color var(--transition-fast), background-color var(--transition-fast), transform var(--transition-fast);
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-subtle);
 }
 
-section > div:last-of-type a:hover {
-  border-color: var(--accent-primary);
-  color: var(--accent-primary);
-  background-color: var(--bg-elevated);
-  transform: translateY(-1px);
+main > section > div:last-child a:hover {
+  background: rgba(255, 255, 255, .08);
+  border-color: rgba(255, 255, 255, .24);
 }
 
-@media (min-width: 768px) {
-  section > div:first-of-type {
-    grid-template-columns: 280px 1fr;
-    align-items: start;
-    padding: var(--space-8);
-    gap: var(--space-8);
-  }
-
-  section > div:first-of-type > div:first-child img {
-    max-width: 100%;
-    margin: 0;
-  }
+@media (min-width: 700px) {
+  main > section { width: min(100% - 3rem, 1100px); padding-top: 2.5rem; }
+  main > section > div:first-of-type { grid-template-columns: minmax(230px, 320px) minmax(0, 1fr); gap: 2rem; padding: 2rem; }
+  main > section > div:last-child { flex-direction: row; }
+  main > section > div:last-child button,
+  main > section > div:last-child a { min-width: 190px; }
 }

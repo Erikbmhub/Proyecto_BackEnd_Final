@@ -1,14 +1,13 @@
-extends ../layouts/main
+
 
 
 block styles
-    link(rel="stylesheet" href="/css/admin/users.css")
+  link(rel="stylesheet” href=“/css/admin/users.css")
+  
 
 block content
     section.admin-users-container
-        div.admin-users-header
-            h2 Gestión de usuarios
-            a(href="/movies") Volver a gestión de películas
+        h2 Gestión de usuarios
 
         //- Formulario para crear un usuario
         section.create-user
@@ -19,7 +18,7 @@ block content
                     label(for="username") Nombre
                     input#username(
                         type="text"
-                        name="username"
+                        name="name"
                         placeholder="Nombre del usuario"
                         required
                     )
@@ -39,15 +38,6 @@ block content
                         type="password"
                         name="password"
                         placeholder="Contraseña"
-                        required
-                    )
-                //- Confirmación de contraseña
-                div.form-group
-                    label(for="confirmPassword") Confirmar contraseña
-                    input(
-                        type="password"
-                        name="confirmPassword"
-                        placeholder="Repite tu contraseña"
                         required
                     )
 

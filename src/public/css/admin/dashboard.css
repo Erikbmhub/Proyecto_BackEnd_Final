@@ -1,0 +1,174 @@
+/* =========================================
+   ADMIN DASHBOARD — MOBILE FIRST
+   ========================================= */
+.admin-dashboard-container {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 1.5rem 1rem 3.5rem;
+  color: var(--text-primary);
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* Cabecera / Bienvenida Admin */
+.admin-welcome {
+  background: linear-gradient(135deg, var(--bg-surface) 0%, var(--bg-elevated) 100%);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 1.75rem 1.25rem;
+  box-shadow: var(--shadow-card);
+  text-align: center;
+}
+
+.admin-welcome h2 {
+  font-size: 1.65rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.admin-welcome h2::before {
+  content: "ADMIN";
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: #0c0f16;
+  background-color: var(--accent-admin);
+  padding: 0.22rem 0.5rem;
+  border-radius: 6px;
+}
+
+.admin-welcome p {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  max-width: 620px;
+  margin: 0 auto;
+}
+
+/* Sección de opciones */
+.admin-options {
+  display: flex;
+  flex-direction: column;
+  gap: 1.15rem;
+}
+
+.admin-options h3 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  padding-bottom: 0.35rem;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+/* Tarjetas en móvil (1 columna) */
+.admin-cards {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+.admin-card {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1rem;
+  box-shadow: var(--shadow-card);
+  transition: transform var(--transition-fast), border-color var(--transition-fast), background-color var(--transition-fast);
+}
+
+.admin-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(245, 158, 11, 0.45);
+  background-color: var(--bg-elevated);
+}
+
+.admin-card h4 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.admin-card p {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.45;
+  margin-top: -0.5rem;
+}
+
+.admin-card a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #0c0f16;
+  background-color: var(--accent-admin);
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+  transition: filter var(--transition-fast), transform var(--transition-fast);
+}
+
+.admin-card a:hover {
+  filter: brightness(1.08);
+}
+
+.admin-card a:active {
+  transform: scale(0.99);
+}
+
+/* =========================================
+   TABLET / ESCRITORIO (>= 640px)
+   ========================================= */
+@media (min-width: 640px) {
+  .admin-dashboard-container {
+    padding: 2rem 1.5rem 4rem;
+  }
+
+  .admin-welcome {
+    padding: 2.25rem 2rem;
+    text-align: left;
+  }
+
+  .admin-welcome h2 {
+    font-size: 2rem;
+    justify-content: flex-start;
+  }
+
+  .admin-welcome p {
+    margin: 0;
+  }
+
+  .admin-cards {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+  }
+
+  .admin-card a {
+    width: fit-content;
+    padding: 0.65rem 1.25rem;
+  }
+}
+
+/* =========================================
+   ESCRITORIO AMPLIO (>= 1024px)
+   ========================================= */
+@media (min-width: 1024px) {
+  .admin-cards {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+}

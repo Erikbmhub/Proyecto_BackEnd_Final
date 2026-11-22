@@ -15,7 +15,8 @@ router.get("/google/callback",
     passport.authenticate('google', { failureRedirect: '/login' }),
     (req, res) => {
         res.cookie('token', req.user.token, { httpOnly: true });
-        const redirectUrl = req.user.user.role === 'admin' ? '/movies' : '/dashboard';
+        const redirectUrl = req.user.user.role === 'admin' ? '/admin/movies' : '/user/dashboard';
+        const redirectUrl1 = req.user.user.role === 'admin' ? '/movies' : '/dashboard';
         res.redirect(redirectUrl);
     }
 );
