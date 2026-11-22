@@ -1,8 +1,6 @@
 
-
 block styles
-  link(rel="stylesheet” href=“/css/admin/users.css")
-  
+    link(rel="stylesheet" href="/css/admin/users.css")
 
 block content
     section.admin-users-container
@@ -12,12 +10,12 @@ block content
         section.create-user
             h3 Crear nuevo usuario
 
-            form#user-form(action="/api/auth/signup" method="POST")
+            form#user-form
                 div.form-group
-                    label(for="name") Nombre
-                    input#name(
+                    label(for="username") Nombre
+                    input#username(
                         type="text"
-                        name="name"
+                        name="username"
                         placeholder="Nombre del usuario"
                         required
                     )
@@ -42,30 +40,81 @@ block content
 
                 button(type="submit") Crear usuario
 
+        //- Formulario para editar un usuario
+        section.edit-user-form
+            h3 Editar usuario
+
+            form#edit-user-form
+                input#edit-user-id(
+                    type="hidden"
+                    name="id"
+                )
+
+                div.form-group
+                    label(for="edit-username") Nombre
+                    input#edit-username(
+                        type="text"
+                        name="username"
+                        required
+                    )
+
+                div.form-group
+                    label(for="edit-email") Correo electrónico
+                    input#edit-email(
+                        type="email"
+                        name="email"
+                        required
+                    )
+
+                div.form-group
+                    label(for="edit-role") Rol
+                    select#edit-role(
+                        name="role"
+                        required
+                    )
+                        option(value="user") Usuario
+                        option(value="admin") Administrador
+
+                button(type="submit") Guardar cambios
+                button#cancel-edit(type="button") Cancelar
+
         //- Listado de usuarios registrados
         section.user-management
             h3 Usuarios registrados
 
             if users && users.length
-                div.user-list
-                    each user in users
-                        article.user-card
-                            div.user-info
-                                h4= user.name
-                                p Correo: #{user.email}
-                                p Rol: #{user.role}
+                table
+                    thead
+                        tr
+                            th ID
+                            th Usuario
+                            th Correo electrónico
+                            th Rol
+                            th Fecha de registro
+                            th Acciones
 
-                                //- Acciones de administración
-                                button(
-                                    type="button"
-                                    class="edit-user"
-                                    data-user-id=user.id
-                                ) Editar
+                    tbody
+                        each user in users
+                            tr(data-user-id=user.id)
+                                td= user.id
+                                td= user.username
+                                td= user.email
+                                td= user.role
+                                td= new Date(user.created_at).toLocaleDateString("es-ES")
+                                td
+                                    button(
+                                        type="button"
+                                        class="edit-user"
+                                        data-user-id=user.id
+                                    ) Editar
 
-                                button(
-                                    type="button"
-                                    class="delete-user"
-                                    data-user-id=user.id
-                                ) Eliminar
+                                    button(
+                                        type="button"
+                                        class="delete-user"
+                                        data-user-id=user.id
+                                    ) Eliminar
             else
                 p Todavía no hay usuarios registrados.
+
+block scripts
+    script(src="/js/users.js" defer)
