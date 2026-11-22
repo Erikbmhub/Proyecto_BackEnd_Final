@@ -1,6 +1,7 @@
 // Importamos el modelo de películas.
 const MovieModel = require("../models/movie.model");
 const Favorite = require("../models/favorite.model");
+const UserModel = require("../models/user.model");
 
 //http://localhost:3001
 async function getViewHome(req, res) {
@@ -74,8 +75,19 @@ async function getViewProfile(req, res) {
 
 //http://localhost:3001/users
 async function getViewUsers(req, res) {
-  //lista de usuarios
-  res.render("admin/users.pug");
+  try {
+    // Obtenemos todos los usuarios registrados en PostgreSQL.
+    const users = await UserModel.getAllUsers();
+
+    // Enviamos los usuarios a la vista de administración.
+    res.render("admin/users.pug", {
+      users,
+      user: req.user,
+    });
+  } catch (error) {
+    console.error("Error al cargar los usuarios:", error);
+    res.status(500).send("Error al cargar los usuarios");
+  }
 }
 
 //http://localhost:3001/signup

@@ -6,3 +6,7 @@ CREATE TABLE IF NOT EXISTS public.users (
     role VARCHAR(50) DEFAULT 'user' NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+--Consulta para obtener todos los usuarios registrados
+SELECT id, username, email, role, created_at
+FROM public.users
+ORDER BY created_at DESC;
