@@ -24,14 +24,14 @@ async function getMovie(req, res) {
     }
 
     // Si no hay coincidencias locales, consultamos TMDB.
-    const moviesFromTmdb = await fetchDataFilm(title);
+   const moviesFromTmdb = await fetchDataFilm(title);
 
     if (!moviesFromTmdb || !Array.isArray(moviesFromTmdb)) {
       return res.status(502).json({
         mensaje: "No se pudo obtener una respuesta válida de TMDB",
       });
     }
-    MovieModel.insertMany(moviesFromTmdb)
+    await MovieModel.insertMany(moviesFromTmdb)
 
     req.session.movies = moviesFromTmdb;
     return res.redirect("/search");
@@ -44,6 +44,7 @@ async function getMovie(req, res) {
     });
   }
 }
+
 
 async function getMovieByDetail(req, res) {
 

@@ -2,7 +2,7 @@
 const MovieModel = require("../models/movie.model");
 const Favorite = require("../models/favorite.model");
 const UserModel = require("../models/user.model");
-const fetchDataFilm = require("../services/tmdb.service");
+const { fetchBoxOfficeMovies } = require("../services/tmdb.service");
 
 // http://localhost:3001
 // async function getViewHome(req, res) {
@@ -10,7 +10,7 @@ const fetchDataFilm = require("../services/tmdb.service");
 // }
 async function getViewHome(req, res) {
   try {
-    const featuredMovies = await fetchDataFilm.fetchBoxOfficeMovies(8);
+    const featuredMovies = await fetchBoxOfficeMovies(8);
     res.render("home.pug", { user: req.user, featuredMovies });
   } catch (error) {
     console.error("Error al cargar la portada:", error);
