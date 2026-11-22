@@ -94,7 +94,6 @@ block content
                                     src=movie.image
                                     alt="Cartel de " + movie.title
                                 )
-
                                 div
                                     h4.movie-title= movie.title
                                     p.movie-year Año: #{movie.year}
@@ -124,7 +123,7 @@ block content
                     each movie in movies
                         article.favorite-item(data-tmdb-id=movie.tmdbId)
                             img(
-                                src=movie.image ? `https://image.tmdb.org/t/p/w500${movie.image}` : "/images/no-poster.png"
+                                src=movie.image ? `${movie.image}` : "/images/no-poster.png"
                                 alt="Portada de " + movie.title
                             )
 

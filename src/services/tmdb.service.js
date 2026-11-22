@@ -18,7 +18,7 @@ const fetchDataFilm = async (titleFilm) => {
                     return {
                         tmdbId: movieData.id,
                         title: movieData.title,
-                        image: movieData.poster_path,
+                        image: `https://image.tmdb.org/t/p/w500${movieData.poster_path}`,
                         year: movieData.release_date.split("-")[0],
                         director: movieData.credits?.crew?.find((persona) => persona.job === "Director")?.name ?? null,
                         genre: movieData.genres.map(genre => genre.name),

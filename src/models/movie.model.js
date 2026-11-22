@@ -22,41 +22,41 @@ const movieSchema = new mongoose.Schema({
     // Imagen representativa.
     image: {
         type: String,
-        required: true
+        required: false
     },
 
     // Año de estreno.
     year: {
         type: Number,
-        required: true
+        required: false
     },
 
     // Director de la película.
     director: {
         type: String,
-        required: true,
+        required: false,
         trim: true
     },
 
     // Género cinematográfico.
     genre: {
         type: Array,
-        required: true,
+        required: false,
         trim: true
     },
 
     // Duración de la película.
     duration: {
         type: String,
-        required: true
+        required: false
     },
     actors: {
         type: Array,
-        required: true
+        required: false
     },
     imdbRating: {
         type: Number,
-        required: true
+        required: false
     },
     description: {
         type: String,
