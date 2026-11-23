@@ -4,6 +4,9 @@ Aplicación web Full-Stack construida con **Node.js**, **Express** y **Pug** que
 
 ---
 
+<img width="420" height="748" alt="{A28ED2F5-09DE-40FC-8F22-56DF3865295A}" src="https://github.com/user-attachments/assets/afdde5fa-4cf7-42ba-86f6-5e1d1555f102" />
+
+
 ## 🚀 Características Principales
 
 * **Autenticación y Autorización:**
