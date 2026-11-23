@@ -4,7 +4,15 @@ jest.mock("../models/user.model.js", () => ({
   findUserByUsername: jest.fn(),
 }));
 
-const { createUser } = require("../models/user.model.js");
+jest.mock("jsonwebtoken", () => ({
+  sign: jest.fn(() => "token-de-prueba"),
+}));
+
+const {
+  createUser,
+  findUserByEmail,
+  findUserByUsername,
+} = require("../models/user.model.js");
 const { register } = require("../controllers/auth.controller.js");
 
 function createResponse() {
@@ -12,12 +20,15 @@ function createResponse() {
     status: jest.fn().mockReturnThis(),
     send: jest.fn().mockReturnThis(),
     redirect: jest.fn().mockReturnThis(),
+    cookie: jest.fn().mockReturnThis(),
   };
 }
 
 describe("registro de usuarios", () => {
   beforeEach(() => {
     jest.clearAllMocks();
+    findUserByEmail.mockResolvedValue(null);
+    findUserByUsername.mockResolvedValue(null);
   });
 
   test("responde 400 cuando faltan campos obligatorios", async () => {
@@ -55,8 +66,8 @@ describe("registro de usuarios", () => {
     expect(createUser).not.toHaveBeenCalled();
   });
 
-  test("crea el usuario y redirige al login", async () => {
-    createUser.mockResolvedValue({ id: 1 });
+  test("crea el usuario, guarda una cookie y redirige al dashboard", async () => {
+    createUser.mockResolvedValue({ id: 1, role: "user" });
 
     const req = {
       body: {
@@ -76,6 +87,11 @@ describe("registro de usuarios", () => {
       "user",
       "clave-segura",
     );
-    expect(res.redirect).toHaveBeenCalledWith("/login");
+    expect(res.cookie).toHaveBeenCalledWith(
+      "token",
+      "token-de-prueba",
+      { httpOnly: true },
+    );
+    expect(res.redirect).toHaveBeenCalledWith("/dashboard");
   });
 });
