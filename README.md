@@ -6,6 +6,18 @@ Aplicación web Full-Stack construida con **Node.js**, **Express** y **Pug** que
 
 <img width="420" height="748" alt="{A28ED2F5-09DE-40FC-8F22-56DF3865295A}" src="https://github.com/user-attachments/assets/afdde5fa-4cf7-42ba-86f6-5e1d1555f102" />
 
+<img width="417" height="751" alt="{2AF6055A-ACD8-4015-AD36-6A67FF7BE9B3}" src="https://github.com/user-attachments/assets/6669691a-1c6c-43fe-937b-dc61cc46f799" />
+
+<img width="407" height="743" alt="{0D29C0A0-D2F7-4511-9A61-038D3D55C1C2}" src="https://github.com/user-attachments/assets/f1c94761-befa-4a95-a680-2952d8cc5629" />
+
+<img width="414" height="750" alt="{87D74A95-7704-4EE2-A406-2FD049B28CDA}" src="https://github.com/user-attachments/assets/54bbb340-d49c-496b-a030-08f49e2b8c95" />
+
+<img width="410" height="748" alt="{C7EDA8BB-3029-4573-9517-2FCECD9A25D9}" src="https://github.com/user-attachments/assets/6a044201-852a-48ac-86eb-7792af2e5f20" />
+
+
+
+
+
 
 ## 🚀 Características Principales
 
