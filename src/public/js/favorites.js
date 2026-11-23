@@ -1,6 +1,6 @@
 document.addEventListener("click", async (event) => {
   const toggleButton = event.target.closest(".favorite-toggle");
-  const listRemoveButton = event.target.closest(".remove-favorite:not(.favorite-toggle)");
+  const listRemoveButton = event.target.closest("#deleteFavorite:not(.favorite-toggle)");
   const button = toggleButton || listRemoveButton;
 
   if (!button) return;
